@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опросный лист видеонаблюдения</title>
+    <style>
+        :root {
+            --primary: #ff7700;
+            --primary-light: #ffa64d;
+            --secondary: #ffffff;
+            --text: #333333;
+            --border: #cccccc;
+            --hover: #ffe6cc;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff8f0, #ffffff);
+            color: var(--text);
+            padding: 10px;
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 119, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .section {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .info-icon {
+            margin-left: 8px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text);
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            width: 200px;
+            font-size: 12px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 10;
+            margin-bottom: 8px;
+        }
+        
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: var(--text);
+        }
+        
+        .info-icon:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .question {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .question-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        input[type="number"], select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+            width: 150px;
+        }
+        
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+        }
+        
+        .stream-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        
+        .stream-selector {
+            flex: 1;
+            min-width: 140px;
+        }
+        
+        .stream-selector label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        
+        .camera-set {
+            background: #fff9f2;
+            border: 1px solid #ffd8b3;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+            position: relative;
+        }
+        
+        .camera-set-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .camera-set-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+        
+        .remove-set {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .add-set-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        
+        .add-set-btn:hover {
+            background: linear-gradient(to right, #cc5500, var(--primary));
+        }
+        
+        .analytics-selector {
+            margin-top: 10px;
+        }
+        
+        .analytics-selector label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        
+        .analytics-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-height: 120px;
+            overflow-y: auto;
+            padding: 5px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .analytics-item {
+            background: #f0f0f0;
+            border-radius: 15px;
+            padding: 3px 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+        }
+        
+        .analytics-item input[type="checkbox"] {
+            margin-right: 4px;
+            width: 14px;
+            height: 14px;
+        }
+        
+        .storage-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .storage-item {
+            flex: 1;
+            min-width: 140px;
+        }
+        
+        .storage-item label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: #fff9f2;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            justify-content: center;
+            min-width: 150px;
+        }
+        
+        .btn-copy {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+        }
+        
+        .btn-email {
+            background: linear-gradient(to right, #4d9be6, #3a7bc8);
+            color: white;
+        }
+        
+        .btn-save {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            input[type="number"], select {
+                width: 100%;
+            }
+            
+            .stream-group, .storage-group {
+                flex-direction: column;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Опросный лист для подбора сервера видеонаблюдения</h1>
+        </header>
+        
+        <div class="section">
+            <div class="section-title">
+                Основные вопросы для расчета
+            </div>
+            
+            <div class="question">
+                <label class="question-label">1. Укажите общее количество камер, которое вы хотите использовать?</label>
+                <div class="input-group">
+                    <input type="number" id="total-cameras" min="1" value="1">
+                </div>
+            </div>
+            
+            <div class="question">
+                <label class="question-label">2. Какой кодек будет использоваться преимущественно у камер?</label>
+                <div class="input-group">
+                    <select id="codec">
+                        <option value="h265">h265</option>
+                        <option value="h264">h264</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label class="question-label">3. Какое разрешение будет использоваться у камер? Укажите разрешение основного и дополнительного потока.</label>
+                
+                <div id="camera-sets-container">
+                    <div class="camera-set" data-set="1">
+                        <div class="camera-set-header">
+                            <div class="camera-set-title">Набор камер #1</div>
+                            <button class="remove-set" onclick="removeCameraSet(1)">×</button>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Количество камер в наборе:</label>
+                            <input type="number" min="1" value="1" class="camera-count" style="width: 80px;">
+                        </div>
+                        
+                        <div class="stream-group">
+                            <div class="stream-selector">
+                                <label>Основной поток:</label>
+                                <select class="main-stream">
+                                    <option value="0.3 MP">0,3 MP</option>
+                                    <option value="0.4 MP">0,4 MP</option>
+                                    <option value="1 MP">1 MP</option>
+                                    <option value="1.3">1,3</option>
+                                    <option value="2 MP">2 MP</option>
+                                    <option value="3 MP">3 MP</option>
+                                    <option value="4 MP">4 MP</option>
+                                    <option value="5 MP">5 MP</option>
+                                    <option value="6 MP">6 MP</option>
+                                    <option value="8 MP">8 MP</option>
+                                    <option value="10 MP">10 MP</option>
+                                    <option value="12 MP">12 MP</option>
+                                </select>
+                            </div>
+                            
+                            <div class="stream-selector">
+                                <label>Дополнительный поток:</label>
+                                <select class="secondary-stream">
+                                    <option value="0.3 MP">0,3 MP</option>
+                                    <option value="0.4 MP">0,4 MP</option>
+                                    <option value="1 MP">1 MP</option>
+                                    <option value="1.3">1,3</option>
+                                    <option value="2 MP">2 MP</option>
+                                    <option value="3 MP">3 MP</option>
+                                    <option value="4 MP">4 MP</option>
+                                    <option value="5 MP">5 MP</option>
+                                    <option value="6 MP">6 MP</option>
+                                    <option value="8 MP">8 MP</option>
+                                    <option value="10 MP">10 MP</option>
+                                    <option value="12 MP">12 MP</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-selector">
+                            <label>Аналитика (выберите нужные):</label>
+                            <div class="analytics-list">
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-1" value="Детектор движения">
+                                    <label for="analytics-1-1">Детектор движения</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-2" value="Поиск объектов">
+                                    <label for="analytics-1-2">Поиск объектов</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-3" value="Трекинг">
+                                    <label for="analytics-1-3">Трекинг</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-4" value="Подсчет посетителей">
+                                    <label for="analytics-1-4">Подсчет посетителей</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-5" value="Определение длины очереди">
+                                    <label for="analytics-1-5">Определение длины очереди</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-6" value="Детектор скопления людей">
+                                    <label for="analytics-1-6">Детектор скопления людей</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-7" value="Тепловая карта интенсивности движения">
+                                    <label for="analytics-1-7">Тепловая карта интенсивности движения</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-8" value="Контроль активности персонала">
+                                    <label for="analytics-1-8">Контроль активности персонала</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-9" value="Обнаружение лиц">
+                                    <label for="analytics-1-9">Обнаружение лиц</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-10" value="Детектор саботажа">
+                                    <label for="analytics-1-10">Детектор саботажа</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-11" value="Обнаружение оставленных предметов">
+                                    <label for="analytics-1-11">Обнаружение оставленных предметов</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-12" value="Детектор дыма и огня">
+                                    <label for="analytics-1-12">Детектор дыма и огня</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-13" value="Контроль спецодежды">
+                                    <label for="analytics-1-13">Контроль спецодежды</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-14" value="Распознование автономеров (Macroscop)">
+                                    <label for="analytics-1-14">Распознование автономеров (Macroscop)</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-15" value="Распознование автономеров (Complete)">
+                                    <label for="analytics-1-15">Распознование автономеров (Complete)</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-16" value="Распознование автономеров (Light)">
+                                    <label for="analytics-1-16">Распознование автономеров (Light)</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-17" value="Наполненность полок">
+                                    <label for="analytics-1-17">Наполненность полок</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-18" value="Распознование лиц (Light)">
+                                    <label for="analytics-1-18">Распознование лиц (Light)</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-19" value="Распознование лиц (Complete)">
+                                    <label for="analytics-1-19">Распознование лиц (Complete)</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-20" value="Подсчет уникальных посетителей">
+                                    <label for="analytics-1-20">Подсчет уникальных посетителей</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-21" value="Подсчет объектов">
+                                    <label for="analytics-1-21">Подсчет объектов</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-22" value="Обнаружение спецтранспорта">
+                                    <label for="analytics-1-22">Обнаружение спецтранспорта</label>
+                                </div>
+                                <div class="analytics-item">
+                                    <input type="checkbox" id="analytics-1-23" value="Обнаружение падений">
+                                    <label for="analytics-1-23">Обнаружение падений</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="add-set-btn" onclick="addCameraSet()">
+                    <span>+</span> Добавить набор камер
+                </button>
+            </div>
+            
+            <div class="question">
+                <label class="question-label">5. Будут ли мониторы для отображения камер в реальном времени?</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="monitors" onchange="toggleMonitorsSection()">
+                    <label for="monitors">Да</label>
+                </div>
+                
+                <div id="monitors-section" class="hidden">
+                    <div class="question">
+                        <label class="question-label">5.1 Какое разрешение мониторов будет использоваться?
+                            <div class="info-icon">?
+                                <div class="tooltip">Чем выше разрешение монитора, тем больше будет необходимо мощностей физической машины.</div>
+                            </div>
+                        </label>
+                        <div class="input-group">
+                            <select id="monitor-resolution">
+                                <option value="HD (1280×720)">HD (1280×720)</option>
+                                <option value="FHD (1920×1080)">FHD (1920×1080)</option>
+                                <option value="2K (2048x1080)">2K (2048x1080)</option>
+                                <option value="4K (3840×2160)">4K (3840×2160)</option>
+                                <option value="8K (7680×4320)">8K (7680×4320)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">5.2. Какое количество мониторов будет использоваться?</label>
+                        <div class="input-group">
+                            <input type="number" id="monitor-count" min="1" value="1" style="width: 80px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label class="question-label">6. На какую ОС ориентируетесь?</label>
+                <div class="input-group">
+                    <select id="os">
+                        <option value="Windows">Windows</option>
+                        <option value="Linux">Linux</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label class="question-label">7. Сколько часов в сутки запись? Сколько дней хранится архив?</label>
+                <div class="storage-group">
+                    <div class="storage-item">
+                        <label>Хранение архива, дней:</label>
+                        <input type="number" id="storage-days" min="1" value="30" style="width: 80px;">
+                    </div>
+                    <div class="storage-item">
+                        <label>Запись, ч/сут:</label>
+                        <input type="number" id="recording-hours" min="1" max="24" value="24" style="width: 80px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">
+                Техническая часть реализации сервера
+                <div class="info-icon">?
+                    <div class="tooltip">Блок заполняется при необходимости подбора сервера</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label class="question-label">Необходим только подбор спецификаций сервера?</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="specs-only">
+                    <label for="specs-only">Да</label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label class="question-label">Необходим подбор серверного оборудования?</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="hardware-needed" onchange="toggleHardwareSection()">
+                    <label for="hardware-needed">Да</label>
+                </div>
+                
+                <div id="hardware-section" class="hidden">
+                    <div class="question">
+                        <label class="question-label">1. Необходимо реализовать hot swap для архивной дисковой системы?</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="hot-swap">
+                            <label for="hot-swap">Да</label>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <label class="question-label">2. Требуемые уровни Raid, которые необходимо будет реализовать при построении архивной дисковой системы.</label>
+                        <div class="input-group">
+                            <select id="raid-level">
+                                <option value="RAID 0">RAID 0</option>
+                                <option value="RAID 1">RAID 1</option>
+                                <option value="RAID 5">RAID 5</option>
+                                <option value="RAID 6">RAID 6</option>
+                                <option value="RAID 10">RAID 10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-copy" onclick="copyToClipboard()">
+                <span>📋</span> Сохранить в буфер
+            </button>
+            <button class="btn btn-email" onclick="sendEmail()">
+                <span>📧</span> Отправить по e-mail
+            </button>
+            <button class="btn btn-save" onclick="saveToTxt()">
+                <span>💾</span> Сохранить в TXT
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let cameraSetCounter = 1;
+        
+        function toggleMonitorsSection() {
+            const monitorsSection = document.getElementById('monitors-section');
+            const monitorsCheckbox = document.getElementById('monitors');
+            
+            if (monitorsCheckbox.checked) {
+                monitorsSection.classList.remove('hidden');
+            } else {
+                monitorsSection.classList.add('hidden');
+            }
+        }
+        
+        function toggleHardwareSection() {
+            const hardwareSection = document.getElementById('hardware-section');
+            const hardwareCheckbox = document.getElementById('hardware-needed');
+            
+            if (hardwareCheckbox.checked) {
+                hardwareSection.classList.remove('hidden');
+            } else {
+                hardwareSection.classList.add('hidden');
+            }
+        }
+        
+        function addCameraSet() {
+            cameraSetCounter++;
+            
+            const container = document.getElementById('camera-sets-container');
+            const newSet = document.createElement('div');
+            newSet.className = 'camera-set';
+            newSet.setAttribute('data-set', cameraSetCounter);
+            newSet.innerHTML = `
+                <div class="camera-set-header">
+                    <div class="camera-set-title">Набор камер #${cameraSetCounter}</div>
+                    <button class="remove-set" onclick="removeCameraSet(${cameraSetCounter})">×</button>
+                </div>
+                
+                <div class="input-group">
+                    <label>Количество камер в наборе:</label>
+                    <input type="number" min="1" value="1" class="camera-count" style="width: 80px;">
+                </div>
+                
+                <div class="stream-group">
+                    <div class="stream-selector">
+                        <label>Основной поток:</label>
+                        <select class="main-stream">
+                            <option value="0.3 MP">0,3 MP</option>
+                            <option value="0.4 MP">0,4 MP</option>
+                            <option value="1 MP">1 MP</option>
+                            <option value="1.3">1,3</option>
+                            <option value="2 MP">2 MP</option>
+                            <option value="3 MP">3 MP</option>
+                            <option value="4 MP">4 MP</option>
+                            <option value="5 MP">5 MP</option>
+                            <option value="6 MP">6 MP</option>
+                            <option value="8 MP">8 MP</option>
+                            <option value="10 MP">10 MP</option>
+                            <option value="12 MP">12 MP</option>
+                        </select>
+                    </div>
+                    
+                    <div class="stream-selector">
+                        <label>Дополнительный поток:</label>
+                        <select class="secondary-stream">
+                            <option value="0.3 MP">0,3 MP</option>
+                            <option value="0.4 MP">0,4 MP</option>
+                            <option value="1 MP">1 MP</option>
+                            <option value="1.3">1,3</option>
+                            <option value="2 MP">2 MP</option>
+                            <option value="3 MP">3 MP</option>
+                            <option value="4 MP">4 MP</option>
+                            <option value="5 MP">5 MP</option>
+                            <option value="6 MP">6 MP</option>
+                            <option value="8 MP">8 MP</option>
+                            <option value="10 MP">10 MP</option>
+                            <option value="12 MP">12 MP</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="analytics-selector">
+                    <label>Аналитика (выберите нужные):</label>
+                    <div class="analytics-list">
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-1" value="Детектор движения">
+                            <label for="analytics-${cameraSetCounter}-1">Детектор движения</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-2" value="Поиск объектов">
+                            <label for="analytics-${cameraSetCounter}-2">Поиск объектов</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-3" value="Трекинг">
+                            <label for="analytics-${cameraSetCounter}-3">Трекинг</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-4" value="Подсчет посетителей">
+                            <label for="analytics-${cameraSetCounter}-4">Подсчет посетителей</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-5" value="Определение длины очереди">
+                            <label for="analytics-${cameraSetCounter}-5">Определение длины очереди</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-6" value="Детектор скопления людей">
+                            <label for="analytics-${cameraSetCounter}-6">Детектор скопления людей</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-7" value="Тепловая карта интенсивности движения">
+                            <label for="analytics-${cameraSetCounter}-7">Тепловая карта интенсивности движения</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-8" value="Контроль активности персонала">
+                            <label for="analytics-${cameraSetCounter}-8">Контроль активности персонала</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-9" value="Обнаружение лиц">
+                            <label for="analytics-${cameraSetCounter}-9">Обнаружение лиц</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-10" value="Детектор саботажа">
+                            <label for="analytics-${cameraSetCounter}-10">Детектор саботажа</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-11" value="Обнаружение оставленных предметов">
+                            <label for="analytics-${cameraSetCounter}-11">Обнаружение оставленных предметов</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-12" value="Детектор дыма и огня">
+                            <label for="analytics-${cameraSetCounter}-12">Детектор дыма и огня</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-13" value="Контроль спецодежды">
+                            <label for="analytics-${cameraSetCounter}-13">Контроль спецодежды</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-14" value="Распознование автономеров (Macroscop)">
+                            <label for="analytics-${cameraSetCounter}-14">Распознование автономеров (Macroscop)</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-15" value="Распознование автономеров (Complete)">
+                            <label for="analytics-${cameraSetCounter}-15">Распознование автономеров (Complete)</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-16" value="Распознование автономеров (Light)">
+                            <label for="analytics-${cameraSetCounter}-16">Распознование автономеров (Light)</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-17" value="Наполненность полок">
+                            <label for="analytics-${cameraSetCounter}-17">Наполненность полок</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-18" value="Распознование лиц (Light)">
+                            <label for="analytics-${cameraSetCounter}-18">Распознование лиц (Light)</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-19" value="Распознование лиц (Complete)">
+                            <label for="analytics-${cameraSetCounter}-19">Распознование лиц (Complete)</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-20" value="Подсчет уникальных посетителей">
+                            <label for="analytics-${cameraSetCounter}-20">Подсчет уникальных посетителей</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-21" value="Подсчет объектов">
+                            <label for="analytics-${cameraSetCounter}-21">Подсчет объектов</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-22" value="Обнаружение спецтранспорта">
+                            <label for="analytics-${cameraSetCounter}-22">Обнаружение спецтранспорта</label>
+                        </div>
+                        <div class="analytics-item">
+                            <input type="checkbox" id="analytics-${cameraSetCounter}-23" value="Обнаружение падений">
+                            <label for="analytics-${cameraSetCounter}-23">Обнаружение падений</label>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(newSet);
+        }
+        
+        function removeCameraSet(setId) {
+            if (cameraSetCounter > 1) {
+                const setToRemove = document.querySelector(`.camera-set[data-set="${setId}"]`);
+                if (setToRemove) {
+                    setToRemove.remove();
+                    cameraSetCounter--;
+                }
+            }
+        }
+        
+        function copyToClipboard() {
+            const result = generateResultText();
+            navigator.clipboard.writeText(result)
+                .then(() => {
+                    alert('Результаты скопированы в буфер обмена!');
+                })
+                .catch(err => {
+                    console.error('Ошибка копирования: ', err);
+                    alert('Не удалось скопировать в буфер обмена');
+                });
+        }
+        
+        function sendEmail() {
+            const result = generateResultText();
+            navigator.clipboard.writeText(result)
+                .then(() => {
+                    const subject = encodeURIComponent('Опросный лист видеонаблюдения');
+                    const body = encodeURIComponent(result);
+                    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                })
+                .catch(err => {
+                    console.error('Ошибка копирования: ', err);
+                    alert('Не удалось скопировать в буфер обмена');
+                });
+        }
+        
+        function saveToTxt() {
+            const result = generateResultText();
+            const blob = new Blob([result], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Опросный лист Macroscop.txt';
+            document.body.appendChild(a);
+            a.click();
+            
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+        
+        function generateResultText() {
+            let result = '=== ОПРОСНЫЙ ЛИСТ ДЛЯ ПОДБОРА СЕРВЕРА ВИДЕОНАБЛЮДЕНИЯ ===\n\n';
+            
+            // Основные вопросы
+            result += 'ОСНОВНЫЕ ВОПРОСЫ ДЛЯ РАСЧЕТА:\n';
+            result += `1. Общее количество камер: ${document.getElementById('total-cameras').value}\n`;
+            result += `2. Кодек камер: ${document.getElementById('codec').value}\n`;
+            result += '3. Разрешения камер:\n';
+            
+            const cameraSets = document.querySelectorAll('.camera-set');
+            cameraSets.forEach((set, index) => {
+                const count = set.querySelector('.camera-count').value;
+                const mainStream = set.querySelector('.main-stream').value;
+                const secondaryStream = set.querySelector('.secondary-stream').value;
+                
+                result += `   Набор ${index+1} (${count} камер): Основной поток - ${mainStream}, Дополнительный поток - ${secondaryStream}\n`;
+                
+                // Аналитика
+                const analytics = [];
+                const checkboxes = set.querySelectorAll('.analytics-item input[type="checkbox"]:checked');
+                checkboxes.forEach(checkbox => {
+                    analytics.push(checkbox.value);
+                });
+                
+                if (analytics.length > 0) {
+                    result += `   Аналитика: ${analytics.join(', ')}\n`;
+                }
+            });
+            
+            // Мониторы
+            const monitorsChecked = document.getElementById('monitors').checked;
+            result += `5. Мониторы для отображения: ${monitorsChecked ? 'Да' : 'Нет'}\n`;
+            
+            if (monitorsChecked) {
+                result += `   5.1 Разрешение мониторов: ${document.getElementById('monitor-resolution').value}\n`;
+                result += `   5.2 Количество мониторов: ${document.getElementById('monitor-count').value}\n`;
+            }
+            
+            // ОС и хранение
+            result += `6. Операционная система: ${document.getElementById('os').value}\n`;
+            result += `7. Хранение архива: ${document.getElementById('storage-days').value} дней\n`;
+            result += `   Запись: ${document.getElementById('recording-hours').value} ч/сут\n\n`;
+            
+            // Техническая часть
+            result += 'ТЕХНИЧЕСКАЯ ЧАСТЬ РЕАЛИЗАЦИИ СЕРВЕРА:\n';
+            const specsOnly = document.getElementById('specs-only').checked;
+            result += `Необходим только подбор спецификаций: ${specsOnly ? 'Да' : 'Нет'}\n`;
+            
+            const hardwareNeeded = document.getElementById('hardware-needed').checked;
+            result += `Необходим подбор серверного оборудования: ${hardwareNeeded ? 'Да' : 'Нет'}\n`;
+            
+            if (hardwareNeeded) {
+                const hotSwap = document.getElementById('hot-swap').checked;
+                result += `1. Hot swap для архивной системы: ${hotSwap ? 'Да' : 'Нет'}\n`;
+                result += `2. Уровень RAID: ${document.getElementById('raid-level').value}\n`;
+            }
+            
+            return result;
+        }
+    </script>
+</body>
+</html>
