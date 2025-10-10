@@ -5,388 +5,391 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Опросный лист Macroscop</title>
     <style>
-        :root {
-            --primary: #ff7700;
-            --primary-light: #ffa500;
-            --secondary: #fff9f2;
-            --border: #ffd8b1;
-            --text: #333;
-            --white: #ffffff;
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 12px;
-        }
-        
         body {
-            background: linear-gradient(135deg, #fff9f2, #ffe5cc);
-            color: var(--text);
-            padding: 10px;
-            line-height: 1.3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 15px;
+            color: #333;
+            font-size: 14px;
         }
-        
+
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: var(--white);
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-        
-        /* Tabs styling */
+
+        /* Стили для вкладок в стиле браузера */
         .tabs {
             display: flex;
-            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+            border-bottom: 1px solid #ddd;
+            padding: 0 8px;
         }
-        
+
         .tab {
-            padding: 8px 12px;
+            padding: 10px 20px;
             cursor: pointer;
-            color: var(--white);
-            font-weight: 600;
+            background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            margin: 4px 3px 0 3px;
             position: relative;
-            transition: background 0.15s;
-            border-right: 1px solid rgba(255,255,255,0.2);
+            top: 1px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
         }
-        
-        .tab:last-child {
-            border-right: none;
+
+        .tab:hover {
+            background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
         }
-        
+
         .tab.active {
-            background: var(--white);
-            color: var(--primary);
+            background: white;
+            border-color: #ff6600;
+            color: #ff6600;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-        
-        /* Tab content */
+
         .tab-content {
             display: none;
-            padding: 10px;
+            padding: 20px;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
+        h1 {
+            color: #ff6600;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #ff6600;
+            font-size: 22px;
+        }
+
         h2 {
-            color: var(--primary);
-            margin: 8px 0 6px;
-            padding-bottom: 3px;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
-            position: relative;
+            color: #ff6600;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 18px;
         }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 80px;
-            height: 1px;
-            background: var(--primary);
+
+        .form-group {
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #ffffff;
         }
-        
-        h3 {
-            color: var(--primary-light);
-            margin: 8px 0 6px;
-            font-size: 13px;
-        }
-        
-        .question {
-            margin-bottom: 8px;
-            padding: 6px;
-            background: var(--secondary);
-            border-radius: 3px;
-            border-left: 2px solid var(--primary);
-        }
-        
-        .question-label {
-            font-weight: 600;
-            margin-bottom: 4px;
+
+        .form-group label {
             display: block;
-            font-size: 12px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #444;
+            font-size: 14px;
         }
-        
+
+        select, input[type="number"], textarea {
+            width: 50%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, input[type="number"]:focus, textarea:focus {
+            border-color: #ff6600;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(to bottom, #ff6600, #e65c00);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background: linear-gradient(to bottom, #e65c00, #cc5200);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .3s;
+            border-radius: 28px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #ff6600;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .tooltip {
             position: relative;
             display: inline-block;
-            margin-left: 4px;
-            color: var(--primary);
-            font-weight: bold;
+            border-bottom: 1px dotted #ff6600;
             cursor: help;
-            font-size: 10px;
+            color: #ff6600;
         }
-        
+
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 180px;
-            background: #333;
-            color: white;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
             text-align: center;
-            border-radius: 3px;
-            padding: 5px;
+            border-radius: 5px;
+            padding: 10px;
             position: absolute;
             z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: 20%;
+            left: 30%;
+            margin-left: -125px;
             opacity: 0;
-            transition: opacity 0.15s;
+            transition: opacity 0.2s;
+            font-size: 12px;
             font-weight: normal;
-            font-size: 11px;
-            line-height: 1.2;
         }
-        
+
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
-        
-        /* Form elements */
-        input[type="number"], select, textarea {
-            width: 100%;
-            padding: 4px 6px;
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            background: var(--white);
-            margin-top: 3px;
-            font-size: 12px;
-        }
-        
-        .resolution-group {
-            display: flex;
-            gap: 8px;
-            margin-top: 5px;
-        }
-        
-        .resolution-group > div {
-            flex: 1;
-        }
-        
-        .analytics-section {
-            margin-top: 5px;
-            padding: 5px;
-            background: var(--white);
-            border-radius: 2px;
-            border: 1px dashed var(--border);
-        }
-        
-        .analytics-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-        
-        .analytics-item select {
-            flex: 1;
-            margin-right: 4px;
-            padding: 3px 5px;
-        }
-        
-        .btn-small {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 2px;
-            padding: 3px 6px;
-            cursor: pointer;
-            font-size: 11px;
-            margin: 2px 0;
-        }
-        
-        .btn-small.remove {
-            background: #ff4444;
-        }
-        
-        .checkbox-group, .radio-group {
+
+        .analytics-row {
             display: flex;
             gap: 10px;
-            margin-top: 4px;
-            flex-wrap: wrap;
-        }
-        
-        .checkbox-item, .radio-item {
-            display: flex;
+            margin-bottom: 10px;
             align-items: center;
-            font-size: 12px;
+            padding: 8px;
+            background-color: #ffffff;
+            border-radius: 3px;
+            border: 1px solid #eee;
         }
-        
-        .checkbox-item input, .radio-item input {
-            margin-right: 3px;
+
+        .analytics-row select, .analytics-row input {
+            flex: 1;
+            padding: 6px;
+            font-size: 13px;
         }
-        
+
+        .analytics-row .cameras-label {
+            white-space: nowrap;
+            margin: 0 8px;
+            font-size: 13px;
+        }
+
+        .add-btn {
+            background: linear-gradient(to bottom, #ff6600, #e65c00);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-btn {
+            background: linear-gradient(to bottom, #ff3300, #e62e00);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .total-cameras {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ff6600;
+            background-color: #fff5f0;
+            padding: 6px 14px;
+            border-radius: 16px;
+            border: 1px solid #ffccaa;
+        }
+
         .hidden {
             display: none;
         }
-        
-        .camera-set {
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            padding: 8px;
-            margin-top: 8px;
-            position: relative;
-            background: var(--white);
+
+        .stream-section {
+            margin-left: 20px;
+            padding: 12px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border: 1px solid #eee;
         }
-        
-        .remove-set {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: #ff4444;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 10px;
+
+        .actions {
+            margin-top: 30px;
             display: flex;
-            align-items: center;
+            gap: 12px;
             justify-content: center;
-            padding: 0;
+            padding: 15px;
+            background-color: #ffffff;
+            border-top: 1px solid #eee;
         }
-        
-        .add-set {
-            margin: 8px 0;
-            background: var(--primary);
+
+        .save-btn {
+            background: linear-gradient(to bottom, #ff6600, #e65c00);
             color: white;
+            padding: 12px 24px;
             border: none;
-            border-radius: 2px;
-            padding: 4px 8px;
+            border-radius: 3px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 12px;
-        }
-        
-        .infrastructure-options {
-            margin-top: 5px;
-        }
-        
-        .infrastructure-option {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .infrastructure-option input[type="radio"] {
-            margin-right: 4px;
-        }
-        
-        .custom-answer {
-            margin-top: 5px;
-            display: none;
-        }
-        
-        .custom-answer.active {
-            display: block;
-        }
-        
-        /* Buttons */
-        .form-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            padding: 10px;
-            background: var(--secondary);
-            border-top: 1px solid var(--border);
-            gap: 8px;
-        }
-        
-        .btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
+            font-size: 15px;
             font-weight: 600;
-            font-size: 12px;
-            transition: all 0.15s;
-            flex: 1;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-primary {
-            background: linear-gradient(to right, var(--primary), var(--primary-light));
-            color: white;
+
+        .save-btn:hover {
+            background: linear-gradient(to bottom, #e65c00, #cc5200);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
-        
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
+
+        input[type="radio"] {
+            margin-right: 6px;
         }
-        
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+
+        .radio-group {
+            margin: 8px 0;
         }
-        
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .resolution-group {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .checkbox-group, .radio-group {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .form-buttons {
-                flex-direction: column;
-            }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="tabs">
-            <div class="tab active" data-tab="server">Серверное оборудование</div>
-            <div class="tab" data-tab="client">Клиентское оборудование</div>
+            <div class="tab active" data-tab="server-main">Основные вопросы для расчета серверного оборудования</div>
+            <div class="tab" data-tab="server-tech">Вопросы для подбора серверного оборудования</div>
+            <div class="tab" data-tab="client">Основные вопросы для расчета клиентского оборудования</div>
         </div>
-        
-        <!-- Server Equipment Tab -->
-        <div class="tab-content active" id="server-tab">
-            <h2>Основные вопросы для расчета серверного оборудования</h2>
+
+        <!-- Первая вкладка: Основные вопросы для расчета серверного оборудования -->
+        <div id="server-main" class="tab-content active">
+            <h1>Основные вопросы для расчета серверного оборудования</h1>
             
-            <div class="question">
-                <label class="question-label">1. Общее количество камер</label>
-                <input type="number" min="1" value="1" id="total-cameras">
+            <div class="form-group">
+                <label>Какую аналитику вы хотели бы использовать?</label>
+                <div id="analytics-container">
+                    <!-- Динамически добавляемые строки аналитики -->
+                </div>
+                <button id="add-analytics" class="add-btn">+</button>
+                <div style="margin-top: 10px;">
+                    <strong>Общее количество аналитики: <span id="total-cameras" class="total-cameras">0</span></strong>
+                </div>
             </div>
+
+            <button id="show-detailed" class="btn">Указать точные характеристики потоков камер</button>
             
-            <div class="question">
-                <label class="question-label">2. Кодек камер</label>
-                <select id="codec">
-                    <option value="h265">h265</option>
-                    <option value="h264">h264</option>
-                </select>
-            </div>
-            
-            <div class="question">
-                <label class="question-label">3. Разрешение основного и дополнительного потока</label>
+            <div id="detailed-questions" class="hidden">
+                <h2>Детальные вопросы о камерах</h2>
                 
-                <div id="camera-sets">
-                    <div class="camera-set">
-                        <button class="remove-set">×</button>
-                        <label>Кол-во камер:</label>
-                        <input type="number" min="1" value="1" class="camera-count">
-                        
-                        <div class="resolution-group">
-                            <div>
-                                <label>Основной:</label>
-                                <select class="main-stream">
+                <div class="form-group">
+                    <label>Количество камер:</label>
+                    <input type="number" id="camera-count" min="1" value="1">
+                </div>
+                
+                <div class="form-group">
+                    <label>Какое разрешение будет использоваться у камер? Укажите разрешение основного и дополнительного потока.</label>
+                    <div class="stream-section">
+                        <div class="form-group">
+                            <label>Основной поток:</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <select id="main-stream">
                                     <option value="0.3">0,3 MP</option>
                                     <option value="0.4">0,4 MP</option>
                                     <option value="1">1 MP</option>
                                     <option value="1.3">1,3 MP</option>
-                                    <option value="2">2 MP</option>
+                                    <option value="2" selected>2 MP</option>
                                     <option value="3">3 MP</option>
                                     <option value="4">4 MP</option>
                                     <option value="5">5 MP</option>
@@ -395,738 +398,1028 @@
                                     <option value="10">10 MP</option>
                                     <option value="12">12 MP</option>
                                 </select>
-                            </div>
-                            <div>
-                                <label>Дополнительный:</label>
-                                <select class="sub-stream">
-                                    <option value="0.3">0,3 MP</option>
-                                    <option value="0.4">0,4 MP</option>
-                                    <option value="1">1 MP</option>
-                                    <option value="1.3">1,3 MP</option>
-                                    <option value="2">2 MP</option>
-                                    <option value="3">3 MP</option>
-                                    <option value="4">4 MP</option>
-                                    <option value="5">5 MP</option>
-                                    <option value="6">6 MP</option>
-                                    <option value="8">8 MP</option>
-                                    <option value="10">10 MP</option>
-                                    <option value="12">12 MP</option>
+                                <select id="main-stream-codec">
+                                    <option value="h264" selected>H.264</option>
+                                    <option value="h265">H.265</option>
                                 </select>
                             </div>
                         </div>
                         
-                        <div class="analytics-section">
-                            <label>Аналитика:</label>
-                            <div class="analytics-items">
-                                <div class="analytics-item">
-                                    <select class="analytics-select">
-                                        <option value="">Выберите аналитику</option>
-                                        <option value="motion">Детектор движения</option>
-                                        <option value="object_search">Поиск объектов</option>
-                                        <option value="tracking">Трекинг</option>
-                                        <option value="visitor_count">Подсчет посетителей</option>
-                                        <option value="queue_length">Определение длины очереди</option>
-                                        <option value="crowd_detection">Детектор скопления людей</option>
-                                        <option value="heat_map">Тепловая карта интенсивности движения</option>
-                                        <option value="staff_control">Контроль активности персонала</option>
-                                        <option value="face_detection">Обнаружение лиц</option>
-                                        <option value="sabotage_detection">Детектор саботажа</option>
-                                        <option value="abandoned_objects">Обнаружение оставленных предметов</option>
-                                        <option value="smoke_fire">Детектор дыма и огня</option>
-                                        <option value="uniform_control">Контроль спецодежды</option>
-                                        <option value="license_plate_macroscop">Распознование автономеров (Macroscop)</option>
-                                        <option value="license_plate_complete">Распознование автономеров (Complete)</option>
-                                        <option value="license_plate_light">Распознование автономеров (Light)</option>
-                                        <option value="shelf_monitoring">Наполненность полок</option>
-                                        <option value="face_recognition_light">Распознование лиц (Light)</option>
-                                        <option value="face_recognition_complete">Распознование лиц (Complete)</option>
-                                        <option value="unique_visitor_count">Подсчет уникальных посетителей</option>
-                                        <option value="object_counting">Подсчет объектов</option>
-                                        <option value="special_transport">Обнаружение спецтранспорта</option>
-                                        <option value="fall_detection">Обнаружение падений</option>
+                        <div class="form-group">
+                            <label>Дополнительный поток:</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <select id="secondary-stream">
+                                    <option value="0.3" selected>0,3 MP</option>
+                                    <option value="0.4">0,4 MP</option>
+                                    <option value="1">1 MP</option>
+                                    <option value="1.3">1,3 MP</option>
+                                    <option value="2">2 MP</option>
+                                    <option value="3">3 MP</option>
+                                    <option value="4">4 MP</option>
+                                    <option value="5">5 MP</option>
+                                    <option value="6">6 MP</option>
+                                    <option value="8">8 MP</option>
+                                    <option value="10">10 MP</option>
+                                    <option value="12">12 MP</option>
+                                </select>
+                                <select id="secondary-stream-codec">
+                                    <option value="h264" selected>H.264</option>
+                                    <option value="h265">H.265</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="third-stream-container" class="hidden">
+                            <div class="form-group">
+                                <label>Дополнительный поток 2:</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <select id="third-stream">
+                                        <option value="0.3" selected>0,3 MP</option>
+                                        <option value="0.4">0,4 MP</option>
+                                        <option value="1">1 MP</option>
+                                        <option value="1.3">1,3 MP</option>
+                                        <option value="2">2 MP</option>
+                                        <option value="3">3 MP</option>
+                                        <option value="4">4 MP</option>
+                                        <option value="5">5 MP</option>
+                                        <option value="6">6 MP</option>
+                                        <option value="8">8 MP</option>
+                                        <option value="10">10 MP</option>
+                                        <option value="12">12 MP</option>
                                     </select>
-                                    <button class="btn-small remove">-</button>
+                                    <select id="third-stream-codec">
+                                        <option value="h264" selected>H.264</option>
+                                        <option value="h265">H.265</option>
+                                    </select>
+                                    <button id="remove-third-stream" class="remove-btn">-</button>
                                 </div>
                             </div>
-                            <button class="btn-small add-analytics">+ Добавить</button>
                         </div>
+                        
+                        <button id="add-third-stream" class="btn">Добавить третий поток</button>
                     </div>
                 </div>
-                
-                <button class="add-set">+ Добавить набор камер</button>
             </div>
-            
-            <div class="question">
-                <label class="question-label">4. Операционная система</label>
+
+            <div class="form-group">
+                <label>Группы камер:</label>
+                <div id="camera-groups-container">
+                    <!-- Динамически добавляемые группы камер -->
+                </div>
+                <button id="add-camera-group" class="add-btn">+</button>
+                <div style="margin-top: 10px;">
+                    <strong>Общее количество камер во всех группах: <span id="total-group-cameras" class="total-cameras">0</span></strong>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>На какую ОС ориентируетесь?</label>
                 <select id="os">
-                    <option value="win10">Windows 10</option>
-                    <option value="win11">Windows 11</option>
-                    <option value="ubuntu20">Ubuntu 20.04</option>
-                    <option value="ubuntu22">Ubuntu 22.04</option>
-                    <option value="ubuntu24">Ubuntu 24.04</option>
-                    <option value="astra">Astra Linux Special Edition 1.7</option>
-                    <option value="alt_work10">Alt Linux Workstation 10</option>
-                    <option value="alt_sp_work10">ALT SP Linux Workstation 10</option>
-                    <option value="alt_server10">ALT Linux Server 10</option>
-                    <option value="alt_sp_server10">ALT SP Linux Server 10</option>
-                    <option value="red_os7">РЕД ОС 7</option>
-                    <option value="red_os8">РЕД ОС 8</option>
-                    <option value="rosa">Роса «Хром» 12</option>
+                    <option>Windows 10</option>
+                    <option>Windows 11</option>
+                    <option>Ubuntu 20.04</option>
+                    <option>Ubuntu 22.04</option>
+                    <option>Ubuntu 24.04</option>
+                    <option>Astra Linux Special Edition 1.7</option>
+                    <option>Alt Linux Workstation 10</option>
+                    <option>ALT SP Linux Workstation 10</option>
+                    <option>ALT Linux Server 10</option>
+                    <option>ALT SP Linux Server 10</option>
+                    <option>РЕД ОС 7; 8</option>
+                    <option>Роса «Хром» 12</option>
                 </select>
             </div>
-            
-            <div class="question">
-                <label class="question-label">5. Запись и хранение архива</label>
-                <div style="display: flex; gap: 10px; margin-top: 5px;">
-                    <div>
-                        <label>Хранение (дней):</label>
-                        <input type="number" min="1" value="30" id="archive-days">
-                    </div>
-                    <div>
-                        <label>Запись (ч/сут):</label>
-                        <input type="number" min="1" max="24" value="24" id="recording-hours">
-                    </div>
+
+            <div class="form-group">
+                <label>Сколько часов в сутки запись? Сколько дней хранится архив?</label>
+                <div>
+                    <label>Хранение архива, дней:</label>
+                    <input type="number" id="archive-days" min="1" value="30">
+                </div>
+                <div>
+                    <label>Запись, ч/сут:</label>
+                    <input type="number" id="recording-hours" min="1" max="24" value="24">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Опишите архитектуру системы видеонаблюдения, которую хотели бы видеть:</label>
+                <div>
+                    <input type="radio" id="architecture-a" name="architecture" value="a">
+                    <label for="architecture-a">Единый центр обработки видео, камеры с трансляцией видео на объектах</label>
+                </div>
+                <div>
+                    <input type="radio" id="architecture-b" name="architecture" value="b">
+                    <label for="architecture-b">Сервер и камеры на каждом объекте</label>
+                </div>
+                <div>
+                    <input type="radio" id="architecture-c" name="architecture" value="c">
+                    <label for="architecture-c">Свой вариант ответа</label>
+                </div>
+                <div id="custom-architecture" class="hidden">
+                    <textarea id="custom-architecture-text" rows="4" placeholder="Опишите ваш вариант..."></textarea>
                 </div>
             </div>
             
-            <div class="question">
-                <label class="question-label">6. Инфраструктура системы видеонаблюдения:</label>
-                <div class="infrastructure-options">
-                    <div class="infrastructure-option">
-                        <input type="radio" name="infrastructure" value="central" id="central">
-                        <label for="central">Единый центр обработки</label>
-                    </div>
-                    <div class="infrastructure-option">
-                        <input type="radio" name="infrastructure" value="per-object" id="per-object">
-                        <label for="per-object">Сервер на каждом объекте</label>
-                    </div>
-                    <div class="infrastructure-option">
-                        <input type="radio" name="infrastructure" value="custom" id="custom">
-                        <label for="custom">Свой вариант</label>
-                    </div>
-                </div>
-                <div class="custom-answer" id="custom-answer">
-                    <textarea placeholder="Опишите свою инфраструктуру..." id="custom-infrastructure"></textarea>
-                </div>
+            <div class="form-group">
+                <label>Комментарии к расчету</label>
+                <textarea id="server-main-comments" placeholder="Введите ваши комментарии здесь..."></textarea>
             </div>
+        </div>
+
+        <!-- Вторая вкладка: Вопросы для подбора серверного оборудования-->
+        <div id="server-tech" class="tab-content">
+            <h1>Вопросы для подбора серверного оборудования</h1>
             
-            <h2 style="position: relative;">
-                Техническая часть реализации сервера
-                <span class="tooltip">?
-                    <span class="tooltiptext">Блок заполняется при необходимости подбора сервера</span>
-                </span>
-            </h2>
-            
-            <div class="question">
-                <label class="question-label">Только подбор спецификаций?</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="specs-only-yes">
-                        <label for="specs-only-yes">Да</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="specs-only-no">
-                        <label for="specs-only-no">Нет</label>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>Подобрать серверное оборудование для видеонаблюдения?</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="select-server-equipment" checked>
+                    <span class="slider"></span>
+                </label>
             </div>
-            
-            <div class="question">
-                <label class="question-label">Подбор серверного оборудования?</label>
-                <div class="checkbox-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="server-equipment-yes">
-                        <label for="server-equipment-yes">Да</label>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="server-equipment-no">
-                        <label for="server-equipment-no">Нет</label>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="server-details" class="hidden">
-                <h3>Вопросы для подбора серверного оборудования:</h3>
+
+            <div id="server-questions">
+                <h2>Вопросы для подбора серверного оборудования:</h2>
                 
-                <div class="question">
-                    <label class="question-label">1. Исполнение корпуса:</label>
-                    <div class="radio-group">
-                        <div class="radio-item">
-                            <input type="radio" name="server-form" value="rack" id="rack">
-                            <label for="rack">rack</label>
-                        </div>
-                        <div class="radio-item">
-                            <input type="radio" name="server-form" value="tower" id="tower">
-                            <label for="tower">tower</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="question">
-                    <label class="question-label">2. Мониторы для отображения камер?</label>
+                <div class="form-group">
+                    <label>В каком исполнении должен быть корпус сервера?</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="monitors-yes">
-                            <label for="monitors-yes">Да</label>
+                            <input type="radio" id="chassis-rack" name="chassis" value="rack">
+                            <label for="chassis-rack">rack</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="monitors-no">
-                            <label for="monitors-no">Нет</label>
+                            <input type="radio" id="chassis-tower" name="chassis" value="tower">
+                            <label for="chassis-tower">tower</label>
                         </div>
                     </div>
                 </div>
-                
-                <div id="monitor-details" class="hidden">
-                    <div class="question">
-                        <label class="question-label">2.1 Разрешение мониторов:
+
+                <div class="form-group">
+                    <label>Будут ли мониторы для отображения камер в реальном времени?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="use-monitors">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div id="monitor-questions" class="hidden">
+                    <div class="form-group">
+                        <label>
+                            Какое разрешение мониторов будет использоваться? 
                             <span class="tooltip">?
-                                <span class="tooltiptext">Чем выше разрешение, тем больше мощностей требуется</span>
+                                <span class="tooltiptext">Предпочтительное разрешение для уменьшения требований к оборудованию  -FHD (1920×1080)</span>
                             </span>
                         </label>
                         <select id="monitor-resolution">
-                            <option value="hd">HD (1280x720)</option>
-                            <option value="fhd">FHD (1920×1080)</option>
-                            <option value="2k">2K (2048x1080)</option>
-                            <option value="4k">4K (3840×2160)</option>
-                            <option value="8k">8K (7680×4320)</option>
+                            <option value="HD">HD (1280x720)</option>
+                            <option value="FHD" selected>FHD (1920×1080)</option>
+                            <option value="2K">2K (2048x1080)</option>
+                            <option value="4K">4K (3840×2160)</option>
+                            <option value="8K">8K (7680×4320)</option>
                         </select>
                     </div>
-                    
-                    <div class="question">
-                        <label class="question-label">2.2 Количество мониторов:</label>
-                        <input type="number" min="1" value="1" id="monitor-count">
+
+                    <div class="form-group">
+                        <label>Какое количество мониторов будет использоваться?</label>
+                        <input type="number" id="monitor-count" min="1" value="1">
                     </div>
-                    
-                    <div class="question">
-                        <label class="question-label">2.3 Количество камер на мониторах:</label>
-                        <input type="number" min="1" value="1" id="cameras-on-monitors">
-                    </div>
-                    
-                    <div class="question">
-                        <label class="question-label">2.4 Количество камер для архива (1-16):</label>
-                        <input type="number" min="1" max="16" value="1" id="archive-cameras">
+
+                    <div class="form-group">
+                        <label>Какое количество камер будет выводится на мониторы?</label>
+                        <input type="number" id="cameras-per-monitor" min="1" value="1">
                     </div>
                 </div>
-                
-                <div class="question">
-                    <label class="question-label">3. Hot swap для архивной дисковой группы?</label>
-                    <input type="checkbox" id="hot-swap" style="float: right; transform: scale(1.1);">
+
+                <div class="form-group">
+                    <label>Использовать hot swap (горячая замена дисков) в сервере для архива?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="hot-swap">
+                        <span class="slider"></span>
+                    </label>
                 </div>
-                
-                <div class="question">
-                    <label class="question-label">4. Требуемые уровни Raid:</label>
-                    <select id="raid-level">
-                        <option value="raid0">RAID 0</option>
-                        <option value="raid1">RAID 1</option>
-                        <option value="raid5">RAID 5</option>
-                        <option value="raid6">RAID 6</option>
-                        <option value="raid10">RAID 10</option>
+
+                <div class="form-group">
+                    <label>Необходим ли рейд контроллер в серверном оборудовании?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="raid-controller">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Использовать зеркалирование системного раздела (Raid 1)?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="raid-1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Использовать резервирование питания для сервера (два блока питания)?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="redundant-psu">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Учесть наличие BMC (IPMI)  при сборке сервера?
+                        <span class="tooltip">?
+                            <span class="tooltiptext">Микроконтроллер на материнской плате сервера, который работает независимо от основной ОС и даёт администратору доступ к управлению оборудованием удалённо, через web-интерфейс или IPMI-протокол</span>
+                        </span>
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="ipmi">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="spec-questions" class="hidden">
+                <div class="form-group">
+                    <label>Необходим подбор спецификаций сервера, для самостоятельной покупки оборудования?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="select-specs">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Комментарии к расчету</label>
+                <textarea id="server-tech-comments" placeholder="Введите ваши комментарии здесь..."></textarea>
+            </div>
+        </div>
+
+        <!-- Третья вкладка: Основные вопросы для расчета клиентского оборудования -->
+        <div id="client" class="tab-content">
+            <h1>Основные вопросы для расчета клиентского оборудования</h1>
+            
+            <div class="form-group">
+                <label>Необходим подбор клиентского оборудования?</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="select-client-equipment">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div id="client-questions" class="hidden">
+                <div class="form-group">
+                    <label>Какое количество мониторов будет использоваться?</label>
+                    <input type="number" id="client-monitor-count" min="1" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Какое разрешение мониторов будет использоваться?
+                        <span class="tooltip">?
+                            <span class="tooltiptext">Предпочтительное разрешение для уменьшения требований к оборудованию - FHD (1920×1080)</span>
+                        </span>
+                    </label>
+                    <select id="client-monitor-resolution">
+                        <option value="HD">HD (1280x720)</option>
+                        <option value="FHD" selected>FHD (1920×1080)</option>
+                        <option value="2K">2K (2048x1080)</option>
+                        <option value="4K">4K (3840×2160)</option>
+                        <option value="8K">8K (7680×4320)</option>
                     </select>
                 </div>
-                
-                <div class="question">
-                    <label class="question-label">5. Зеркалирование системного раздела (Raid 1)?</label>
-                    <input type="checkbox" id="raid1-mirror" style="float: right; transform: scale(1.1);">
+
+                <div class="form-group">
+                    <label>Какое разрешение будет использоваться у камер? Укажите разрешение основного и дополнительного потока.</label>
+                    <div class="stream-section">
+                        <div class="form-group">
+                            <label>Основной поток:</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <select id="client-main-stream">
+                                    <option value="0.3">0,3 MP</option>
+                                    <option value="0.4">0,4 MP</option>
+                                    <option value="1">1 MP</option>
+                                    <option value="1.3">1,3 MP</option>
+                                    <option value="2" selected>2 MP</option>
+                                    <option value="3">3 MP</option>
+                                    <option value="4">4 MP</option>
+                                    <option value="5">5 MP</option>
+                                    <option value="6">6 MP</option>
+                                    <option value="8">8 MP</option>
+                                    <option value="10">10 MP</option>
+                                    <option value="12">12 MP</option>
+                                </select>
+                                <select id="client-main-stream-codec">
+                                    <option value="h264" selected>H.264</option>
+                                    <option value="h265">H.265</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Дополнительный поток:</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <select id="client-secondary-stream">
+                                    <option value="0.3" selected>0,3 MP</option>
+                                    <option value="0.4">0,4 MP</option>
+                                    <option value="1">1 MP</option>
+                                    <option value="1.3">1,3 MP</option>
+                                    <option value="2">2 MP</option>
+                                    <option value="3">3 MP</option>
+                                    <option value="4">4 MP</option>
+                                    <option value="5">5 MP</option>
+                                    <option value="6">6 MP</option>
+                                    <option value="8">8 MP</option>
+                                    <option value="10">10 MP</option>
+                                    <option value="12">12 MP</option>
+                                </select>
+                                <select id="client-secondary-stream-codec">
+                                    <option value="h264" selected>H.264</option>
+                                    <option value="h265">H.265</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="question">
-                    <label class="question-label">6. Резервирование питания (два блока питания)?</label>
-                    <input type="checkbox" id="dual-psu" style="float: right; transform: scale(1.1);">
+
+                <div class="form-group">
+                    <label>Какое исполнение корпуса необходимо для клиентского рабочего места?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="radio" id="client-chassis-rack" name="client-chassis" value="rack">
+                            <label for="client-chassis-rack">rack</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="client-chassis-tower" name="client-chassis" value="tower">
+                            <label for="client-chassis-tower">tower</label>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="question">
-                    <label class="question-label">7. Использовать IPMI при сборке сервера?</label>
-                    <input type="checkbox" id="ipmi" style="float: right; transform: scale(1.1);">
+
+                <div class="form-group">
+                    <label>Использовать зеркалирование системного раздела (Raid 1)?</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="client-raid-1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Какое количество клиентских рабочих станций вам необходимо?</label>
+                    <input type="number" id="client-workstations" min="1" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Какое количество камер будет выводится на мониторы?</label>
+                    <input type="number" id="client-cameras-per-monitor" min="1" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Комментарии к расчету</label>
+                    <textarea id="client-comments" placeholder="Введите ваши комментарии здесь..."></textarea>
                 </div>
             </div>
         </div>
-        
-        <!-- Client Equipment Tab -->
-        <div class="tab-content" id="client-tab">
-            <h2>Основные вопросы для расчета клиентского оборудования</h2>
-            
-            <div class="question">
-                <label class="question-label">1. Количество мониторов:</label>
-                <input type="number" min="1" value="1" id="client-monitor-count">
-            </div>
-            
-            <div class="question">
-                <label class="question-label">2. Разрешение мониторов:
-                    <span class="tooltip">?
-                        <span class="tooltiptext">Чем выше разрешение, тем больше мощностей требуется</span>
-                    </span>
-                </label>
-                <select id="client-monitor-resolution">
-                    <option value="hd">HD (1280x720)</option>
-                    <option value="fhd">FHD (1920×1080)</option>
-                    <option value="2k">2K (2048x1080)</option>
-                    <option value="4k">4K (3840×2160)</option>
-                    <option value="8k">8K (7680×4320)</option>
-                </select>
-            </div>
-            
-            <div class="question">
-                <label class="question-label">3. Разрешение камер (основной и дополнительный поток)</label>
-                
-                <div class="resolution-group">
-                    <div>
-                        <label>Основной:</label>
-                        <select id="client-main-stream">
-                            <option value="0.3">0,3 MP</option>
-                            <option value="0.4">0,4 MP</option>
-                            <option value="1">1 MP</option>
-                            <option value="1.3">1,3 MP</option>
-                            <option value="2">2 MP</option>
-                            <option value="3">3 MP</option>
-                            <option value="4">4 MP</option>
-                            <option value="5">5 MP</option>
-                            <option value="6">6 MP</option>
-                            <option value="8">8 MP</option>
-                            <option value="10">10 MP</option>
-                            <option value="12">12 MP</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Дополнительный:</label>
-                        <select id="client-sub-stream">
-                            <option value="0.3">0,3 MP</option>
-                            <option value="0.4">0,4 MP</option>
-                            <option value="1">1 MP</option>
-                            <option value="1.3">1,3 MP</option>
-                            <option value="2">2 MP</option>
-                            <option value="3">3 MP</option>
-                            <option value="4">4 MP</option>
-                            <option value="5">5 MP</option>
-                            <option value="6">6 MP</option>
-                            <option value="8">8 MP</option>
-                            <option value="10">10 MP</option>
-                            <option value="12">12 MP</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="question">
-                <label class="question-label">4. Количество камер для просмотра архива (1-16):</label>
-                <input type="number" min="1" max="16" value="1" id="client-archive-cameras">
-            </div>
-            
-            <div class="question">
-                <label class="question-label">5. Исполнение корпуса клиентского рабочего места:</label>
-                <div class="radio-group">
-                    <div class="radio-item">
-                        <input type="radio" name="client-form" value="rack" id="client-rack">
-                        <label for="client-rack">rack</label>
-                    </div>
-                    <div class="radio-item">
-                        <input type="radio" name="client-form" value="tower" id="client-tower">
-                        <label for="client-tower">tower</label>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="question">
-                <label class="question-label">6. Зеркалирование системного раздела (Raid 1)?</label>
-                <input type="checkbox" id="client-raid1-mirror" style="float: right; transform: scale(1.1);">
-            </div>
-            
-            <div class="question">
-                <label class="question-label">7. Количество клиентских рабочих станций:</label>
-                <input type="number" min="1" value="1" id="client-workstations">
-            </div>
-        </div>
-        
-        <div class="form-buttons">
-            <button class="btn btn-secondary" id="copy-btn">Сохранить в буфер</button>
-            <button class="btn btn-primary" id="save-btn">Сохранить в txt</button>
+
+        <!-- Кнопки сохранения -->
+        <div class="actions">
+            <button id="copy-to-clipboard" class="save-btn">Сохранить в буфер</button>
+            <button id="save-to-file" class="save-btn">Сохранить результат в txt документ</button>
         </div>
     </div>
 
     <script>
-        // Tab switching
+        // Функциональность вкладок
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs and content
+                // Убрать активный класс у всех вкладок и контентов
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 
-                // Add active class to clicked tab
+                // Добавить активный класс к выбранной вкладке
                 tab.classList.add('active');
                 
-                // Show corresponding content
+                // Показать соответствующий контент
                 const tabId = tab.getAttribute('data-tab');
-                document.getElementById(`${tabId}-tab`).classList.add('active');
+                document.getElementById(tabId).classList.add('active');
             });
         });
+
+        // Список аналитик
+        const analyticsList = [
+            "Поиск объектов", 
+            "Трекинг",
+            "Подсчет посетителей",
+            "Определение длины очереди",
+            "Детектор скопления людей",
+            "Тепловая карта интенсивности движения",
+            "Контроль активности персонала",
+            "Обнаружение лиц",
+            "Детектор саботажа",
+            "Обнаружение оставленных предметов", 
+            "Детектор дыма и огня",
+            "Контроль спецодежды",
+            "Распознование автономеров (Macroscop)",
+            "Распознование автономеров (Complete)",
+            "Распознование автономеров (Light)",
+            "Наполненность полок",
+            "Распознование лиц (Light)",
+            "Распознование лиц (Complete)",
+            "Подсчет уникальных посетителей",
+            "Подсчет объектов",
+            "Обнаружение спецтранспорта",
+            "Обнаружение падений"
+        ];
+
+        // Добавление строки аналитики
+        function addAnalyticsRow() {
+            const container = document.getElementById('analytics-container');
+            const row = document.createElement('div');
+            row.className = 'analytics-row';
+            
+            // Создаем select для аналитики
+            const select = document.createElement('select');
+            analyticsList.forEach(analytic => {
+                const option = document.createElement('option');
+                option.value = analytic;
+                option.textContent = analytic;
+                select.appendChild(option);
+            });
+            
+            // Создаем input для количества камер
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.min = '0';
+            input.value = '0';
+            input.className = 'camera-count';
+            
+            // Создаем метку
+            const label = document.createElement('span');
+            label.className = 'cameras-label';
+            label.textContent = 'кол-во камер';
+            
+            // Создаем кнопку удаления
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-btn';
+            removeBtn.textContent = '-';
+            removeBtn.onclick = function() {
+                container.removeChild(row);
+                updateTotalCameras();
+            };
+            
+            // Добавляем все элементы в строку
+            row.appendChild(select);
+            row.appendChild(input);
+            row.appendChild(label);
+            row.appendChild(removeBtn);
+            
+            // Добавляем обработчик изменения количества камер
+            input.addEventListener('input', updateTotalCameras);
+            select.addEventListener('change', updateTotalCameras);
+            
+            container.appendChild(row);
+            updateTotalCameras();
+        }
+
+        // Добавление группы камер
+        function addCameraGroup() {
+            const container = document.getElementById('camera-groups-container');
+            const group = document.createElement('div');
+            group.className = 'camera-group';
+            group.style.border = '1px solid #eee';
+            group.style.borderRadius = '5px';
+            group.style.padding = '15px';
+            group.style.marginBottom = '15px';
+            group.style.backgroundColor = '#f9f9f9';
+            
+            // Создаем заголовок группы
+            const header = document.createElement('div');
+            header.style.display = 'flex';
+            header.style.justifyContent = 'space-between';
+            header.style.alignItems = 'center';
+            header.style.marginBottom = '10px';
+            
+            const title = document.createElement('h3');
+            title.textContent = 'Группа камер';
+            title.style.margin = '0';
+            title.style.color = '#ff6600';
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-btn';
+            removeBtn.textContent = '-';
+            removeBtn.onclick = function() {
+                container.removeChild(group);
+                updateTotalGroupCameras();
+            };
+            
+            header.appendChild(title);
+            header.appendChild(removeBtn);
+            group.appendChild(header);
+            
+            // Создаем поля для группы камер
+            const groupContent = document.createElement('div');
+            
+            // Количество камер в группе
+            const countGroup = document.createElement('div');
+            countGroup.className = 'form-group';
+            countGroup.innerHTML = '<label>Количество камер:</label><input type="number" class="group-camera-count" min="1" value="1">';
+            groupContent.appendChild(countGroup);
+            
+            // Потоки группы
+            const streamsGroup = document.createElement('div');
+            streamsGroup.className = 'stream-section';
+            streamsGroup.innerHTML = `
+                <h4>Потоки группы</h4>
+                <div class="form-group">
+                    <label>Основной поток:</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select class="group-main-stream">
+                            <option value="0.3">0,3 MP</option>
+                            <option value="0.4">0,4 MP</option>
+                            <option value="1">1 MP</option>
+                            <option value="1.3">1,3 MP</option>
+                            <option value="2" selected>2 MP</option>
+                            <option value="3">3 MP</option>
+                            <option value="4">4 MP</option>
+                            <option value="5">5 MP</option>
+                            <option value="6">6 MP</option>
+                            <option value="8">8 MP</option>
+                            <option value="10">10 MP</option>
+                            <option value="12">12 MP</option>
+                        </select>
+                        <select class="group-main-stream-codec">
+                            <option value="h264" selected>H.264</option>
+                            <option value="h265">H.265</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Дополнительный поток:</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select class="group-secondary-stream">
+                            <option value="0.3" selected>0,3 MP</option>
+                            <option value="0.4">0,4 MP</option>
+                            <option value="1">1 MP</option>
+                            <option value="1.3">1,3 MP</option>
+                            <option value="2">2 MP</option>
+                            <option value="3">3 MP</option>
+                            <option value="4">4 MP</option>
+                            <option value="5">5 MP</option>
+                            <option value="6">6 MP</option>
+                            <option value="8">8 MP</option>
+                            <option value="10">10 MP</option>
+                            <option value="12">12 MP</option>
+                        </select>
+                        <select class="group-secondary-stream-codec">
+                            <option value="h264" selected>H.264</option>
+                            <option value="h265">H.265</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="add-third-stream-group btn">Добавить третий поток</button>
+                <div class="third-stream-group-container hidden">
+                    <div class="form-group">
+                        <label>Дополнительный поток 2:</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <select class="group-third-stream">
+                                <option value="0.3" selected>0,3 MP</option>
+                                <option value="0.4">0,4 MP</option>
+                                <option value="1">1 MP</option>
+                                <option value="1.3">1,3 MP</option>
+                                <option value="2">2 MP</option>
+                                <option value="3">3 MP</option>
+                                <option value="4">4 MP</option>
+                                <option value="5">5 MP</option>
+                                <option value="6">6 MP</option>
+                                <option value="8">8 MP</option>
+                                <option value="10">10 MP</option>
+                                <option value="12">12 MP</option>
+                            </select>
+                            <select class="group-third-stream-codec">
+                                <option value="h264" selected>H.264</option>
+                                <option value="h265">H.265</option>
+                            </select>
+                            <button class="remove-third-stream-group remove-btn">-</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            groupContent.appendChild(streamsGroup);
+            
+            group.appendChild(groupContent);
+            container.appendChild(group);
+            
+            // Добавляем обработчики событий
+            const countInput = group.querySelector('.group-camera-count');
+            countInput.addEventListener('input', updateTotalGroupCameras);
+            
+            // Обработчик для кнопки добавления третьего потока
+            const addThirdStreamBtn = group.querySelector('.add-third-stream-group');
+            addThirdStreamBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const thirdStreamContainer = group.querySelector('.third-stream-group-container');
+                thirdStreamContainer.classList.remove('hidden');
+                this.classList.add('hidden');
+            });
+            
+            // Обработчик для кнопки удаления третьего потока
+            const removeThirdStreamBtn = group.querySelector('.remove-third-stream-group');
+            removeThirdStreamBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const thirdStreamContainer = group.querySelector('.third-stream-group-container');
+                thirdStreamContainer.classList.add('hidden');
+                addThirdStreamBtn.classList.remove('hidden');
+            });
+            
+            updateTotalGroupCameras();
+        }
+
+        // Обновление общего количества камер
+        function updateTotalCameras() {
+            let total = 0;
+            document.querySelectorAll('.analytics-row').forEach(row => {
+                const input = row.querySelector('.camera-count');
+                if (input) {
+                    total += parseInt(input.value) || 0;
+                }
+            });
+            
+            // Добавляем количество камер из блока "Детальные вопросы о камерах"
+            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
+                const detailedCameraCount = document.getElementById('camera-count');
+                if (detailedCameraCount) {
+                    total += parseInt(detailedCameraCount.value) || 0;
+                }
+            }
+            
+            document.getElementById('total-cameras').textContent = total;
+        }
+
+        // Обновление общего количества камер во всех группах
+        function updateTotalGroupCameras() {
+            let total = 0;
+            document.querySelectorAll('.camera-group').forEach(group => {
+                const input = group.querySelector('.group-camera-count');
+                if (input) {
+                    total += parseInt(input.value) || 0;
+                }
+            });
+            document.getElementById('total-group-cameras').textContent = total;
+        }
+
+        // Показ/скрытие детальных вопросов
+        document.getElementById('show-detailed').addEventListener('click', function() {
+            const detailed = document.getElementById('detailed-questions');
+            detailed.classList.toggle('hidden');
+        });
+
+        // Добавление третьего потока
+        document.getElementById('add-third-stream').addEventListener('click', function(e) {
+            e.preventDefault();
+            const container = document.getElementById('third-stream-container');
+            container.classList.remove('hidden');
+            this.classList.add('hidden');
+        });
         
-        // Infrastructure options
-        document.querySelectorAll('input[name="infrastructure"]').forEach(radio => {
+        // Удаление третьего потока
+        document.getElementById('remove-third-stream').addEventListener('click', function(e) {
+            e.preventDefault();
+            const container = document.getElementById('third-stream-container');
+            container.classList.add('hidden');
+            document.getElementById('add-third-stream').classList.remove('hidden');
+        });
+        
+        // Обновление общего количества камер при изменении значения в "Детальные вопросы о камерах"
+        document.getElementById('camera-count').addEventListener('input', updateTotalCameras);
+
+        // Показ/скрытие пользовательской архитектуры
+        document.querySelectorAll('input[name="architecture"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                const customAnswer = document.getElementById('custom-answer');
-                if (this.value === 'custom' && this.checked) {
-                    customAnswer.classList.add('active');
+                const custom = document.getElementById('custom-architecture');
+                if (this.value === 'c') {
+                    custom.classList.remove('hidden');
                 } else {
-                    customAnswer.classList.remove('active');
+                    custom.classList.add('hidden');
                 }
             });
         });
-        
-        // Server equipment details
-        document.getElementById('server-equipment-yes').addEventListener('change', function() {
-            document.getElementById('server-details').classList.toggle('hidden', !this.checked);
-        });
-        
-        // Monitor details
-        document.getElementById('monitors-yes').addEventListener('change', function() {
-            document.getElementById('monitor-details').classList.toggle('hidden', !this.checked);
-        });
-        
-        // Camera sets functionality
-        document.addEventListener('click', function(e) {
-            // Add analytics
-            if (e.target.classList.contains('add-analytics')) {
-                const analyticsSection = e.target.closest('.analytics-section');
-                const analyticsItems = analyticsSection.querySelector('.analytics-items');
-                const newItem = document.createElement('div');
-                newItem.className = 'analytics-item';
-                newItem.innerHTML = `
-                    <select class="analytics-select">
-                        <option value="">Выберите аналитику</option>
-                        <option value="motion">Детектор движения</option>
-                        <option value="object_search">Поиск объектов</option>
-                        <option value="tracking">Трекинг</option>
-                        <option value="visitor_count">Подсчет посетителей</option>
-                        <option value="queue_length">Определение длины очереди</option>
-                        <option value="crowd_detection">Детектор скопления людей</option>
-                        <option value="heat_map">Тепловая карта интенсивности движения</option>
-                        <option value="staff_control">Контроль активности персонала</option>
-                        <option value="face_detection">Обнаружение лиц</option>
-                        <option value="sabotage_detection">Детектор саботажа</option>
-                        <option value="abandoned_objects">Обнаружение оставленных предметов</option>
-                        <option value="smoke_fire">Детектор дыма и огня</option>
-                        <option value="uniform_control">Контроль спецодежды</option>
-                        <option value="license_plate_macroscop">Распознование автономеров (Macroscop)</option>
-                        <option value="license_plate_complete">Распознование автономеров (Complete)</option>
-                        <option value="license_plate_light">Распознование автономеров (Light)</option>
-                        <option value="shelf_monitoring">Наполненность полок</option>
-                        <option value="face_recognition_light">Распознование лиц (Light)</option>
-                        <option value="face_recognition_complete">Распознование лиц (Complete)</option>
-                        <option value="unique_visitor_count">Подсчет уникальных посетителей</option>
-                        <option value="object_counting">Подсчет объектов</option>
-                        <option value="special_transport">Обнаружение спецтранспорта</option>
-                        <option value="fall_detection">Обнаружение падений</option>
-                    </select>
-                    <button class="btn-small remove">-</button>
-                `;
-                analyticsItems.appendChild(newItem);
-            }
-            
-            // Remove analytics
-            if (e.target.classList.contains('remove') && e.target.closest('.analytics-item')) {
-                e.target.closest('.analytics-item').remove();
-            }
-            
-            // Add camera set
-            if (e.target.classList.contains('add-set')) {
-                const cameraSets = document.getElementById('camera-sets');
-                const newSet = document.createElement('div');
-                newSet.className = 'camera-set';
-                newSet.innerHTML = `
-                    <button class="remove-set">×</button>
-                    <label>Кол-во камер:</label>
-                    <input type="number" min="1" value="1" class="camera-count">
-                    
-                    <div class="resolution-group">
-                        <div>
-                            <label>Основной:</label>
-                            <select class="main-stream">
-                                <option value="0.3">0,3 MP</option>
-                                <option value="0.4">0,4 MP</option>
-                                <option value="1">1 MP</option>
-                                <option value="1.3">1,3 MP</option>
-                                <option value="2">2 MP</option>
-                                <option value="3">3 MP</option>
-                                <option value="4">4 MP</option>
-                                <option value="5">5 MP</option>
-                                <option value="6">6 MP</option>
-                                <option value="8">8 MP</option>
-                                <option value="10">10 MP</option>
-                                <option value="12">12 MP</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Дополнительный:</label>
-                            <select class="sub-stream">
-                                <option value="0.3">0,3 MP</option>
-                                <option value="0.4">0,4 MP</option>
-                                <option value="1">1 MP</option>
-                                <option value="1.3">1,3 MP</option>
-                                <option value="2">2 MP</option>
-                                <option value="3">3 MP</option>
-                                <option value="4">4 MP</option>
-                                <option value="5">5 MP</option>
-                                <option value="6">6 MP</option>
-                                <option value="8">8 MP</option>
-                                <option value="10">10 MP</option>
-                                <option value="12">12 MP</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="analytics-section">
-                        <label>Аналитика:</label>
-                        <div class="analytics-items">
-                            <div class="analytics-item">
-                                <select class="analytics-select">
-                                    <option value="">Выберите аналитику</option>
-                                    <option value="motion">Детектор движения</option>
-                                    <option value="object_search">Поиск объектов</option>
-                                    <option value="tracking">Трекинг</option>
-                                    <option value="visitor_count">Подсчет посетителей</option>
-                                    <option value="queue_length">Определение длины очереди</option>
-                                    <option value="crowd_detection">Детектор скопления людей</option>
-                                    <option value="heat_map">Тепловая карта интенсивности движения</option>
-                                    <option value="staff_control">Контроль активности персонала</option>
-                                    <option value="face_detection">Обнаружение лиц</option>
-                                    <option value="sabotage_detection">Детектор саботажа</option>
-                                    <option value="abandoned_objects">Обнаружение оставленных предметов</option>
-                                    <option value="smoke_fire">Детектор дыма и огня</option>
-                                    <option value="uniform_control">Контроль спецодежды</option>
-                                    <option value="license_plate_macroscop">Распознование автономеров (Macroscop)</option>
-                                    <option value="license_plate_complete">Распознование автономеров (Complete)</option>
-                                    <option value="license_plate_light">Распознование автономеров (Light)</option>
-                                    <option value="shelf_monitoring">Наполненность полок</option>
-                                    <option value="face_recognition_light">Распознование лиц (Light)</option>
-                                    <option value="face_recognition_complete">Распознование лиц (Complete)</option>
-                                    <option value="unique_visitor_count">Подсчет уникальных посетителей</option>
-                                    <option value="object_counting">Подсчет объектов</option>
-                                    <option value="special_transport">Обнаружение спецтранспорта</option>
-                                    <option value="fall_detection">Обнаружение падений</option>
-                                </select>
-                                <button class="btn-small remove">-</button>
-                            </div>
-                        </div>
-                        <button class="btn-small add-analytics">+ Добавить</button>
-                    </div>
-                `;
-                cameraSets.appendChild(newSet);
-            }
-            
-            // Remove camera set
-            if (e.target.classList.contains('remove-set')) {
-                if (document.querySelectorAll('.camera-set').length > 1) {
-                    e.target.closest('.camera-set').remove();
-                } else {
-                    alert('Нельзя удалить последний набор камер');
-                }
+
+        // Показ/скрытие вопросов о мониторах
+        document.getElementById('use-monitors').addEventListener('change', function() {
+            const monitorQuestions = document.getElementById('monitor-questions');
+            if (this.checked) {
+                monitorQuestions.classList.remove('hidden');
+            } else {
+                monitorQuestions.classList.add('hidden');
             }
         });
-        
-        // Copy to clipboard functionality
-        document.getElementById('copy-btn').addEventListener('click', function() {
-            let results = "# Опросный лист Macroscop\n\n";
+
+        // Показ/скрытие вопросов о серверном оборудовании
+        document.getElementById('select-server-equipment').addEventListener('change', function() {
+            const serverQuestions = document.getElementById('server-questions');
+            const specQuestions = document.getElementById('spec-questions');
             
-            // Server tab data
-            results += "## Серверное оборудование\n\n";
-            results += `1. Общее количество камер: ${document.getElementById('total-cameras').value}\n`;
-            results += `2. Кодек: ${document.getElementById('codec').value}\n`;
-            results += `4. ОС: ${document.getElementById('os').value}\n`;
-            results += `5. Хранение архива: ${document.getElementById('archive-days').value} дней\n`;
-            results += `   Запись: ${document.getElementById('recording-hours').value} ч/сут\n`;
+            if (this.checked) {
+                serverQuestions.classList.remove('hidden');
+                specQuestions.classList.add('hidden');
+            } else {
+                serverQuestions.classList.add('hidden');
+                specQuestions.classList.remove('hidden');
+            }
+        });
+
+        // Инициализация первой строки аналитики
+        document.getElementById('add-analytics').addEventListener('click', addAnalyticsRow);
+        // Добавляем первую строку при загрузке
+        addAnalyticsRow();
+
+        // Инициализация первой группы камер
+        document.getElementById('add-camera-group').addEventListener('click', addCameraGroup);
+
+        // Показ/скрытие вопросов клиентского оборудования
+        document.getElementById('select-client-equipment').addEventListener('change', function() {
+            const clientQuestions = document.getElementById('client-questions');
+            if (this.checked) {
+                clientQuestions.classList.remove('hidden');
+                // Изменяем цвет переключателя на светло зеленый при выборе "да"
+                this.parentNode.querySelector('.slider').style.backgroundColor = '#4CAF50';
+            } else {
+                clientQuestions.classList.add('hidden');
+                // Возвращаем обычный цвет при выборе "нет"
+                this.parentNode.querySelector('.slider').style.backgroundColor = '';
+            }
+        });
+
+        // Функция для сбора всех ответов в формате markdown
+        function collectAnswers() {
+            let markdown = "# Опросный лист Macroscop\n\n";
             
-            // Infrastructure
-            const infrastructure = document.querySelector('input[name="infrastructure"]:checked');
-            if (infrastructure) {
-                results += `6. Инфраструктура: ${infrastructure.nextElementSibling.textContent}\n`;
-                if (infrastructure.value === 'custom' && document.getElementById('custom-infrastructure').value) {
-                    results += `   Пользовательский вариант: ${document.getElementById('custom-infrastructure').value}\n`;
+            // Первая вкладка
+            markdown += "## Основные вопросы для расчета серверного оборудования\n\n";
+            
+            // Аналатика
+            markdown += "### Какую аналитику вы хотели бы использовать?\n";
+            let totalCameras = 0;
+            document.querySelectorAll('.analytics-row').forEach((row, index) => {
+                const select = row.querySelector('select');
+                const input = row.querySelector('.camera-count');
+                if (select && input) {
+                    const analytic = select.value;
+                    const count = input.value;
+                    markdown += `- ${analytic}: ${count} камер\n`;
+                    totalCameras += parseInt(count) || 0;
+                }
+            });
+            
+            // Добавляем количество камер из блока "Детальные вопросы о камерах"
+            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
+                const detailedCameraCount = document.getElementById('camera-count').value;
+                markdown += `- Камеры из блока "Детальные вопросы о камерах": ${detailedCameraCount} камер\n`;
+                totalCameras += parseInt(detailedCameraCount) || 0;
+            }
+            
+            markdown += `\n**Общее количество аналитики: ${totalCameras}**\n\n`;
+            
+            // Детальные вопросы
+            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
+                markdown += "### Детальные вопросы о камерах\n";
+                const cameraCount = document.getElementById('camera-count').value;
+                const mainStream = document.getElementById('main-stream').value;
+                const secondaryStream = document.getElementById('secondary-stream').value;
+                markdown += `- Количество камер: ${cameraCount}\n`;
+                markdown += `- Основной поток: ${mainStream} MP\n`;
+                markdown += `- Дополнительный поток: ${secondaryStream} MP\n`;
+                
+                // Добавляем информацию о кодеках
+                const mainStreamCodec = document.getElementById('main-stream-codec').value;
+                const secondaryStreamCodec = document.getElementById('secondary-stream-codec').value;
+                markdown += `- Кодек основного потока: ${mainStreamCodec.toUpperCase()}\n`;
+                markdown += `- Кодек дополнительного потока: ${secondaryStreamCodec.toUpperCase()}\n`;
+                
+                if (!document.getElementById('third-stream-container').classList.contains('hidden')) {
+                    const thirdStream = document.getElementById('third-stream').value;
+                    const thirdStreamCodec = document.getElementById('third-stream-codec').value;
+                    markdown += `- Дополнительный поток 2: ${thirdStream} MP\n`;
+                    markdown += `- Кодек дополнительного потока 2: ${thirdStreamCodec.toUpperCase()}\n`;
+                }
+                markdown += "\n";
+            }
+            
+            // ОС
+            const os = document.getElementById('os').value;
+            markdown += `### На какую ОС ориентируетесь?\n${os}\n\n`;
+            
+            // Хранение архива
+            const archiveDays = document.getElementById('archive-days').value;
+            const recordingHours = document.getElementById('recording-hours').value;
+            markdown += `### Сколько часов в сутки запись? Сколько дней хранится архив?\n`;
+            markdown += `- Хранение архива, дней: ${archiveDays}\n`;
+            markdown += `- Запись, ч/сут: ${recordingHours}\n\n`;
+            
+            // Архитектура
+            const architecture = document.querySelector('input[name="architecture"]:checked');
+            markdown += `### Опишите архитектуру системы видеонаблюдения\n`;
+            if (architecture) {
+                if (architecture.value === 'a') {
+                    markdown += "Единый центр обработки видео, камеры с трансляцией видео на объектах\n";
+                } else if (architecture.value === 'b') {
+                    markdown += "Сервер и камеры на каждом объекте\n";
+                } else if (architecture.value === 'c') {
+                    const custom = document.getElementById('custom-architecture-text').value;
+                    markdown += `Свой вариант: ${custom}\n`;
+                }
+            }
+            markdown += "\n";
+            
+            // Группы камер
+            markdown += "### Группы камер\n";
+            let totalGroupCameras = 0;
+            document.querySelectorAll('.camera-group').forEach((group, index) => {
+                const cameraCount = group.querySelector('.group-camera-count').value;
+                const mainStream = group.querySelector('.group-main-stream').value;
+                const mainStreamCodec = group.querySelector('.group-main-stream-codec').value;
+                const secondaryStream = group.querySelector('.group-secondary-stream').value;
+                const secondaryStreamCodec = group.querySelector('.group-secondary-stream-codec').value;
+                
+                markdown += `\n**Группа ${index + 1}**\n`;
+                markdown += `- Количество камер: ${cameraCount}\n`;
+                markdown += `- Основной поток: ${mainStream} MP (${mainStreamCodec.toUpperCase()})\n`;
+                markdown += `- Дополнительный поток: ${secondaryStream} MP (${secondaryStreamCodec.toUpperCase()})\n`;
+                
+                // Проверяем наличие третьего потока
+                const thirdStreamContainer = group.querySelector('.third-stream-group-container');
+                if (!thirdStreamContainer.classList.contains('hidden')) {
+                    const thirdStream = group.querySelector('.group-third-stream').value;
+                    const thirdStreamCodec = group.querySelector('.group-third-stream-codec').value;
+                    markdown += `- Дополнительный поток 2: ${thirdStream} MP (${thirdStreamCodec.toUpperCase()})\n`;
+                }
+                
+                totalGroupCameras += parseInt(cameraCount) || 0;
+            });
+            markdown += `\n**Общее количество камер во всех группах: ${totalGroupCameras}**\n\n`;
+            
+            // Вторая вкладка
+            markdown += "## Техническая часть реализации сервера\n\n";
+            
+            // Подбор серверного оборудования
+            const selectServer = document.getElementById('select-server-equipment').checked;
+            markdown += `### Подобрать серверное оборудование для видеонаблюдения?\n${selectServer ? 'Да' : 'Нет'}\n\n`;
+            
+            if (selectServer) {
+                // Вопросы для подбора серверного оборудования
+                markdown += "### Вопросы для подбора серверного оборудования\n";
+                
+                // Корпус сервера
+                const chassis = document.querySelector('input[name="chassis"]:checked');
+                if (chassis) {
+                    markdown += `- В каком исполнении должен быть корпус сервера: ${chassis.value}\n`;
+                }
+                
+                // Мониторы
+                const useMonitors = document.getElementById('use-monitors').checked;
+                markdown += `- Будут ли мониторы для отображения камер в реальном времени: ${useMonitors ? 'Да' : 'Нет'}\n`;
+                
+                if (useMonitors) {
+                    const monitorResolution = document.getElementById('monitor-resolution').value;
+                    const monitorCount = document.getElementById('monitor-count').value;
+                    const camerasPerMonitor = document.getElementById('cameras-per-monitor').value;
+                    markdown += `  - Разрешение мониторов: ${monitorResolution}\n`;
+                    markdown += `  - Количество мониторов: ${monitorCount}\n`;
+                    markdown += `  - Количество камер на мониторы: ${camerasPerMonitor}\n`;
+                }
+                
+                // Hot swap
+                const hotSwap = document.getElementById('hot-swap').checked;
+                markdown += `- Использовать hot swap (горячая замена дисков): ${hotSwap ? 'Да' : 'Нет'}\n`;
+                
+                // RAID контроллер
+                const raidController = document.getElementById('raid-controller').checked;
+                markdown += `- Необходим ли рейд контроллер: ${raidController ? 'Да' : 'Нет'}\n`;
+                
+                // RAID 1
+                const raid1 = document.getElementById('raid-1').checked;
+                markdown += `- Использовать зеркалирование системного раздела (Raid 1): ${raid1 ? 'Да' : 'Нет'}\n`;
+                
+                // Резервирование питания
+                const redundantPSU = document.getElementById('redundant-psu').checked;
+                markdown += `- Использовать резервирование питания: ${redundantPSU ? 'Да' : 'Нет'}\n`;
+                
+                // IPMI
+                const ipmi = document.getElementById('ipmi').checked;
+                markdown += `- Использовать iLO, iDRAC, IPMI: ${ipmi ? 'Да' : 'Нет'}\n`;
+            } else {
+                // Подбор спецификаций
+                const selectSpecs = document.getElementById('select-specs').checked;
+                markdown += `### Необходим подбор спецификаций сервера, для самостоятельной покупки оборудования?\n${selectSpecs ? 'Да' : 'Нет'}\n`;
+            }
+            markdown += "\n";
+            
+            // Третья вкладка
+            markdown += "## Основные вопросы для расчета клиентского оборудования\n\n";
+            
+            // Подбор клиентского оборудования
+            const selectClient = document.getElementById('select-client-equipment').checked;
+            markdown += `### Необходим подбор клиентского оборудования?\n${selectClient ? 'Да' : 'Нет'}\n\n`;
+            
+            let clientComments = ''; // Объявляем переменную заранее
+            
+            if (selectClient) {
+                const clientMonitorCount = document.getElementById('client-monitor-count').value;
+                const clientMonitorResolution = document.getElementById('client-monitor-resolution').value;
+                const clientMainStream = document.getElementById('client-main-stream').value;
+                const clientSecondaryStream = document.getElementById('client-secondary-stream').value;
+                const clientChassis = document.querySelector('input[name="client-chassis"]:checked');
+                const clientRaid1 = document.getElementById('client-raid-1').checked;
+                const clientWorkstations = document.getElementById('client-workstations').value;
+                const clientCamerasPerMonitor = document.getElementById('client-cameras-per-monitor').value;
+                clientComments = document.getElementById('client-comments').value; // Присваиваем значение только если блок активен
+                
+                markdown += `- Количество мониторов: ${clientMonitorCount}\n`;
+                markdown += `- Разрешение мониторов: ${clientMonitorResolution}\n`;
+                markdown += `- Основной поток камер: ${clientMainStream} MP\n`;
+                markdown += `- Дополнительный поток камер: ${clientSecondaryStream} MP\n`;
+                
+                // Добавляем информацию о кодеках
+                const clientMainStreamCodec = document.getElementById('client-main-stream-codec').value;
+                const clientSecondaryStreamCodec = document.getElementById('client-secondary-stream-codec').value;
+                markdown += `- Кодек основного потока: ${clientMainStreamCodec.toUpperCase()}\n`;
+                markdown += `- Кодек дополнительного потока: ${clientSecondaryStreamCodec.toUpperCase()}\n`;
+                
+                if (clientChassis) {
+                    markdown += `- Исполнение корпуса: ${clientChassis.value}\n`;
+                }
+                markdown += `- Использовать RAID 1: ${clientRaid1 ? 'Да' : 'Нет'}\n`;
+                markdown += `- Количество клиентских рабочих станций: ${clientWorkstations}\n`;
+                markdown += `- Количество камер на мониторы: ${clientCamerasPerMonitor}\n`;
+                if (clientComments) {
+                    markdown += `- Комментарии к расчету: ${clientComments}\n`;
                 }
             }
             
-            // Technical details
-            results += "\n### Техническая часть\n\n";
-            results += `- Только спецификации: ${document.getElementById('specs-only-yes').checked ? 'Да' : 'Нет'}\n`;
-            results += `- Подбор оборудования: ${document.getElementById('server-equipment-yes').checked ? 'Да' : 'Нет'}\n`;
-            
-            if (document.getElementById('server-equipment-yes').checked) {
-                const serverForm = document.querySelector('input[name="server-form"]:checked');
-                if (serverForm) {
-                    results += `- Исполнение корпуса: ${serverForm.value}\n`;
-                }
-                
-                results += `- Мониторы: ${document.getElementById('monitors-yes').checked ? 'Да' : 'Нет'}\n`;
-                
-                if (document.getElementById('monitors-yes').checked) {
-                    results += `- Разрешение мониторов: ${document.getElementById('monitor-resolution').value}\n`;
-                    results += `- Количество мониторов: ${document.getElementById('monitor-count').value}\n`;
-                    results += `- Камер на мониторах: ${document.getElementById('cameras-on-monitors').value}\n`;
-                    results += `- Камер для архива: ${document.getElementById('archive-cameras').value}\n`;
-                }
-                
-                results += `- Hot swap: ${document.getElementById('hot-swap').checked ? 'Да' : 'Нет'}\n`;
-                results += `- RAID: ${document.getElementById('raid-level').value}\n`;
-                results += `- RAID 1 системный: ${document.getElementById('raid1-mirror').checked ? 'Да' : 'Нет'}\n`;
-                results += `- Двойной БП: ${document.getElementById('dual-psu').checked ? 'Да' : 'Нет'}\n`;
-                results += `- IPMI: ${document.getElementById('ipmi').checked ? 'Да' : 'Нет'}\n`;
+            // Комментарии к расчету на всех вкладках
+            const serverMainComments = document.getElementById('server-main-comments').value;
+            if (serverMainComments) {
+                markdown += `\n### Комментарии к расчету (Серверное оборудование): ${serverMainComments}\n`;
             }
             
-            // Camera sets
-            results += "\n### Наборы камер:\n";
-            document.querySelectorAll('.camera-set').forEach((set, index) => {
-                const count = set.querySelector('.camera-count').value;
-                const mainStream = set.querySelector('.main-stream').value;
-                const subStream = set.querySelector('.sub-stream').value;
+            const serverTechComments = document.getElementById('server-tech-comments').value;
+            if (serverTechComments) {
+                markdown += `\n### Комментарии к расчету (Техническая часть сервера): ${serverTechComments}\n`;
+            }
+            
+            if (clientComments) {
+                markdown += `\n### Комментарии к расчету (Клиентское оборудование): ${clientComments}\n`;
+            }
+            
+            return markdown;
+        }
+
+        // Сохранение в буфер обмена
+        document.getElementById('copy-to-clipboard').addEventListener('click', function() {
+            const markdown = collectAnswers();
+            
+            // Копирование в буфер обмена
+            navigator.clipboard.writeText(markdown).then(function() {
+                alert('Результаты опроса скопированы в буфер обмена!');
+            }, function() {
+                // Альтернативный метод для старых браузеров
+                const textArea = document.createElement("textarea");
+                textArea.value = markdown;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
                 
-                results += `\n${index+1}. Количество: ${count}\n`;
-                results += `   Основной поток: ${mainStream} MP\n`;
-                results += `   Дополнительный поток: ${subStream} MP\n`;
-                
-                const analytics = [];
-                set.querySelectorAll('.analytics-select').forEach(select => {
-                    if (select.value) {
-                        const text = select.options[select.selectedIndex].text;
-                        analytics.push(text);
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        alert('Результаты опроса скопированы в буфер обмена!');
+                    } else {
+                        alert('Не удалось скопировать в буфер обмена');
                     }
-                });
-                
-                if (analytics.length > 0) {
-                    results += `   Аналитика: ${analytics.join(', ')}\n`;
+                } catch (err) {
+                    alert('Ошибка при копировании в буфер обмена');
                 }
+                
+                document.body.removeChild(textArea);
             });
-            
-            // Client tab data
-            results += "\n\n## Клиентское оборудование\n\n";
-            results += `1. Количество мониторов: ${document.getElementById('client-monitor-count').value}\n`;
-            results += `2. Разрешение мониторов: ${document.getElementById('client-monitor-resolution').value}\n`;
-            results += `3. Основной поток: ${document.getElementById('client-main-stream').value} MP\n`;
-            results += `   Дополнительный поток: ${document.getElementById('client-sub-stream').value} MP\n`;
-            results += `4. Камер для архива: ${document.getElementById('client-archive-cameras').value}\n`;
-            
-            const clientForm = document.querySelector('input[name="client-form"]:checked');
-            if (clientForm) {
-                results += `5. Исполнение корпуса: ${clientForm.value}\n`;
-            }
-            
-            results += `6. RAID 1 системный: ${document.getElementById('client-raid1-mirror').checked ? 'Да' : 'Нет'}\n`;
-            results += `7. Клиентских станций: ${document.getElementById('client-workstations').value}\n`;
-            
-            // Copy to clipboard
-            navigator.clipboard.writeText(results)
-                .then(() => {
-                    const btn = document.getElementById('copy-btn');
-                    const originalText = btn.textContent;
-                    btn.textContent = 'Скопировано!';
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                    }, 2000);
-                })
-                .catch(err => {
-                    alert('Ошибка копирования: ' + err);
-                });
         });
-        
-        // Save to file functionality
-        document.getElementById('save-btn').addEventListener('click', function() {
-            let results = "# Опросный лист Macroscop\n\n";
-            
-            // Server tab data
-            results += "## Серверное оборудование\n\n";
-            results += `1. Общее количество камер: ${document.getElementById('total-cameras').value}\n`;
-            results += `2. Кодек: ${document.getElementById('codec').value}\n`;
-            results += `4. ОС: ${document.getElementById('os').value}\n`;
-            results += `5. Хранение архива: ${document.getElementById('archive-days').value} дней\n`;
-            results += `   Запись: ${document.getElementById('recording-hours').value} ч/сут\n`;
-            
-            // Infrastructure
-            const infrastructure = document.querySelector('input[name="infrastructure"]:checked');
-            if (infrastructure) {
-                results += `6. Инфраструктура: ${infrastructure.nextElementSibling.textContent}\n`;
-                if (infrastructure.value === 'custom' && document.getElementById('custom-infrastructure').value) {
-                    results += `   Пользовательский вариант: ${document.getElementById('custom-infrastructure').value}\n`;
-                }
-            }
-            
-            // Technical details
-            results += "\n### Техническая часть\n\n";
-            results += `- Только спецификации: ${document.getElementById('specs-only-yes').checked ? 'Да' : 'Нет'}\n`;
-            results += `- Подбор оборудования: ${document.getElementById('server-equipment-yes').checked ? 'Да' : 'Нет'}\n`;
-            
-            if (document.getElementById('server-equipment-yes').checked) {
-                const serverForm = document.querySelector('input[name="server-form"]:checked');
-                if (serverForm) {
-                    results += `- Исполнение корпуса: ${serverForm.value}\n`;
-                }
-                
-                results += `- Мониторы: ${document.getElementById('monitors-yes').checked ? 'Да' : 'Нет'}\n`;
-                
-                if (document.getElementById('monitors-yes').checked) {
-                    results += `- Разрешение мониторов: ${document.getElementById('monitor-resolution').value}\n`;
-                    results += `- Количество мониторов: ${document.getElementById('monitor-count').value}\n`;
-                    results += `- Камер на мониторах: ${document.getElementById('cameras-on-monitors').value}\n`;
-                    results += `- Камер для архива: ${document.getElementById('archive-cameras').value}\n`;
-                }
-                
-                results += `- Hot swap: ${document.getElementById('hot-swap').checked ? 'Да' : 'Нет'}\n`;
-                results += `- RAID: ${document.getElementById('raid-level').value}\n`;
-                results += `- RAID 1 системный: ${document.getElementById('raid1-mirror').checked ? 'Да' : 'Нет'}\n`;
-                results += `- Двойной БП: ${document.getElementById('dual-psu').checked ? 'Да' : 'Нет'}\n`;
-                results += `- IPMI: ${document.getElementById('ipmi').checked ? 'Да' : 'Нет'}\n`;
-            }
-            
-            // Camera sets
-            results += "\n### Наборы камер:\n";
-            document.querySelectorAll('.camera-set').forEach((set, index) => {
-                const count = set.querySelector('.camera-count').value;
-                const mainStream = set.querySelector('.main-stream').value;
-                const subStream = set.querySelector('.sub-stream').value;
-                
-                results += `\n${index+1}. Количество: ${count}\n`;
-                results += `   Основной поток: ${mainStream} MP\n`;
-                results += `   Дополнительный поток: ${subStream} MP\n`;
-                
-                const analytics = [];
-                set.querySelectorAll('.analytics-select').forEach(select => {
-                    if (select.value) {
-                        const text = select.options[select.selectedIndex].text;
-                        analytics.push(text);
-                    }
-                });
-                
-                if (analytics.length > 0) {
-                    results += `   Аналитика: ${analytics.join(', ')}\n`;
-                }
-            });
-            
-            // Client tab data
-            results += "\n\n## Клиентское оборудование\n\n";
-            results += `1. Количество мониторов: ${document.getElementById('client-monitor-count').value}\n`;
-            results += `2. Разрешение мониторов: ${document.getElementById('client-monitor-resolution').value}\n`;
-            results += `3. Основной поток: ${document.getElementById('client-main-stream').value} MP\n`;
-            results += `   Дополнительный поток: ${document.getElementById('client-sub-stream').value} MP\n`;
-            results += `4. Камер для архива: ${document.getElementById('client-archive-cameras').value}\n`;
-            
-            const clientForm = document.querySelector('input[name="client-form"]:checked');
-            if (clientForm) {
-                results += `5. Исполнение корпуса: ${clientForm.value}\n`;
-            }
-            
-            results += `6. RAID 1 системный: ${document.getElementById('client-raid1-mirror').checked ? 'Да' : 'Нет'}\n`;
-            results += `7. Клиентских станций: ${document.getElementById('client-workstations').value}\n`;
-            
-            // Create and download file
-            const blob = new Blob([results], { type: 'text/plain;charset=utf-8' });
+
+        // Сохранение в файл
+        document.getElementById('save-to-file').addEventListener('click', function() {
+            const markdown = collectAnswers();
+            const blob = new Blob([markdown], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
+            
             const a = document.createElement('a');
             a.href = url;
             a.download = 'Опросный лист Macroscop.txt';
             document.body.appendChild(a);
             a.click();
             
-            // Clean up
+            // Очистка
             setTimeout(() => {
                 document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-            }, 0);
+                URL.revokeObjectURL(url);
+            }, 100);
         });
     </script>
 </body>
