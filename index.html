@@ -459,16 +459,16 @@
                         <button id="add-third-stream" class="btn">Добавить третий поток</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Группы камер:</label>
-                <div id="camera-groups-container">
-                    <!-- Динамически добавляемые группы камер -->
-                </div>
-                <button id="add-camera-group" class="add-btn">+</button>
-                <div style="margin-top: 10px;">
-                    <strong>Общее количество камер во всех группах: <span id="total-group-cameras" class="total-cameras">0</span></strong>
+                <div class="form-group">
+                    <label>Группы камер:</label>
+                    <div id="camera-groups-container">
+                        <!-- Динамически добавляемые группы камер -->
+                    </div>
+                    <button id="add-camera-group" class="add-btn">+</button>
+                    <div style="margin-top: 10px;">
+                        <strong>Общее количество камер во всех группах: <span id="total-group-cameras" class="total-cameras">0</span></strong>
+                    </div>
                 </div>
             </div>
 
@@ -1033,14 +1033,6 @@
                 }
             });
             
-            // Добавляем количество камер из блока "Детальные вопросы о камерах"
-            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
-                const detailedCameraCount = document.getElementById('camera-count');
-                if (detailedCameraCount) {
-                    total += parseInt(detailedCameraCount.value) || 0;
-                }
-            }
-            
             document.getElementById('total-cameras').textContent = total;
         }
 
@@ -1053,6 +1045,15 @@
                     total += parseInt(input.value) || 0;
                 }
             });
+            
+            // Добавляем количество камер из блока "Детальные вопросы о камерах"
+            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
+                const detailedCameraCount = document.getElementById('camera-count');
+                if (detailedCameraCount) {
+                    total += parseInt(detailedCameraCount.value) || 0;
+                }
+            }
+            
             document.getElementById('total-group-cameras').textContent = total;
         }
 
@@ -1079,7 +1080,10 @@
         });
         
         // Обновление общего количества камер при изменении значения в "Детальные вопросы о камерах"
-        document.getElementById('camera-count').addEventListener('input', updateTotalCameras);
+        document.getElementById('camera-count').addEventListener('input', function() {
+            updateTotalCameras();
+            updateTotalGroupCameras();
+        });
 
         // Показ/скрытие пользовательской архитектуры
         document.querySelectorAll('input[name="architecture"]').forEach(radio => {
