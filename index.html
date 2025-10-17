@@ -371,7 +371,7 @@
             <button id="show-detailed" class="btn">Указать точные характеристики потоков камер</button>
             
             <div id="detailed-questions" class="hidden">
-                <h2>Детальные вопросы о камерах</h2>
+                <h2>Параметры камер</h2>
                 
                 <div class="form-group">
                     <label>Количество камер:</label>
@@ -1046,7 +1046,7 @@
                 }
             });
             
-            // Добавляем количество камер из блока "Детальные вопросы о камерах"
+            // Добавляем количество камер из блока "Параметры камер"
             if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
                 const detailedCameraCount = document.getElementById('camera-count');
                 if (detailedCameraCount) {
@@ -1079,7 +1079,7 @@
             document.getElementById('add-third-stream').classList.remove('hidden');
         });
         
-        // Обновление общего количества камер при изменении значения в "Детальные вопросы о камерах"
+        // Обновление общего количества камер при изменении значения в "Параметры камер"
         document.getElementById('camera-count').addEventListener('input', function() {
             updateTotalCameras();
             updateTotalGroupCameras();
@@ -1164,18 +1164,18 @@
                 }
             });
             
-            // Добавляем количество камер из блока "Детальные вопросы о камерах"
+            // Добавляем количество камер из блока "Параметры камер"
             if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
                 const detailedCameraCount = document.getElementById('camera-count').value;
-                markdown += `- Камеры из блока "Детальные вопросы о камерах": ${detailedCameraCount} камер\n`;
+                markdown += `- Камеры из блока "Параметры камер": ${detailedCameraCount} камер\n`;
                 totalCameras += parseInt(detailedCameraCount) || 0;
             }
             
             markdown += `\n**Общее количество аналитики: ${totalCameras}**\n\n`;
             
-            // Детальные вопросы
+            // Параметры камер
             if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
-                markdown += "### Детальные вопросы о камерах\n";
+                markdown += "### Параметры камер\n";
                 const cameraCount = document.getElementById('camera-count').value;
                 const mainStream = document.getElementById('main-stream').value;
                 const secondaryStream = document.getElementById('secondary-stream').value;
