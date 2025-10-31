@@ -16,11 +16,12 @@
 
         .container {
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 30px auto;
             background-color: white;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            padding: 30px;
         }
 
         /* Стили для вкладок в стиле браузера */
@@ -70,24 +71,41 @@
 
         h1 {
             color: #ff6600;
+            margin-bottom: 21px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ff6600;
+            font-size: 24px;
+            text-align: center;
+            background-color: #fff9f5;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section:last-child {
             margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #ff6600;
-            font-size: 22px;
         }
 
         h2 {
-            color: #ff6600;
+            color: #000000;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
             margin-top: 25px;
             margin-bottom: 15px;
-            font-size: 18px;
+            font-size: 15px;
         }
 
         .form-group {
             margin-bottom: 20px;
-            padding: 12px;
+            padding: 15px;
             border: 1px solid #eee;
             border-radius: 5px;
             background-color: #ffffff;
@@ -95,50 +113,93 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: #444;
-            font-size: 14px;
+            color: #333;
+            font-size: 15px;
         }
-
-        select, input[type="number"], textarea {
-            width: 50%;
-            padding: 8px;
+        
+        .streams-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stream-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .stream-field {
+            flex:1;
+        }
+        
+        .stream-field label {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: 50;
+            color: #333;
+            font-size: 14px;
+            text-wrap: nowrap;
+        }
+        
+        .stream-field input,
+        .stream-field select {
+            width: 100% !important;
+            padding: 8px 10px;
             border: 1px solid #ddd;
-            border-radius: 3px;
+            border-radius: 5px;
             box-sizing: border-box;
             font-size: 14px;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        
+        select, input[type="number"], textarea {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
         }
 
         select:focus, input[type="number"]:focus, textarea:focus {
             border-color: #ff6600;
             outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.2);
+            box-shadow: 0 0 0 2px rgba(3, 3, 3, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        select:hover, input[type="number"]:hover, textarea:hover {
+            border-color: #ff6600;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
         }
 
         .btn {
             background: linear-gradient(to bottom, #ff6600, #e65c00);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 3px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
 
         .btn:hover {
             background: linear-gradient(to bottom, #e65c00, #cc5200);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
         }
 
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 50px;
+            width: 52px;
             height: 28px;
         }
 
@@ -158,22 +219,25 @@
             background-color: #ccc;
             transition: .3s;
             border-radius: 28px;
+            box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.2);
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 22px;
-            width: 22px;
-            left: 3px;
-            bottom: 3px;
+            height: 24px;
+            width: 24px;
+            left: 2px;
+            bottom: 2px;
             background-color: white;
             transition: .3s;
             border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         input:checked + .slider {
             background-color: #ff6600;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         input:checked + .slider:before {
@@ -191,6 +255,13 @@
             align-items: center;
             gap: 6px;
         }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
+        }
 
         .tooltip {
             position: relative;
@@ -206,62 +277,72 @@
             background-color: #333;
             color: #fff;
             text-align: center;
-            border-radius: 5px;
-            padding: 10px;
+            border-radius: 6px;
+            padding: 12px;
             position: absolute;
             z-index: 1;
-            bottom: 20%;
-            left: 30%;
+            bottom: 125%;
+            left: 50%;
             margin-left: -125px;
             opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 12px;
+            transition: opacity 0.3s;
+            font-size: 14px;
             font-weight: normal;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
 
         .analytics-row {
             display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 12px;
             align-items: center;
-            padding: 8px;
+            padding: 10px;
             background-color: #ffffff;
-            border-radius: 3px;
+            border-radius: 5px;
             border: 1px solid #eee;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .analytics-row select, .analytics-row input {
             flex: 1;
             padding: 6px;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .analytics-row .cameras-label {
             white-space: nowrap;
             margin: 0 8px;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .add-btn {
             background: linear-gradient(to bottom, #ff6600, #e65c00);
             color: white;
             border: none;
-            padding: 6px 10px;
-            border-radius: 3px;
+            padding: 12px 24px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            margin-top: 8px;
+            transition: all 0.3s ease;
         }
 
         .remove-btn {
@@ -269,18 +350,24 @@
             color: white;
             border: none;
             padding: 6px 10px;
-            border-radius: 3px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
 
+        .add-btn:hover, .remove-btn:hover {
+            background: linear-gradient(to bottom, #e65c00, #cc5200);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
         .total-cameras {
             font-weight: bold;
             font-size: 18px;
@@ -297,10 +384,15 @@
 
         .stream-section {
             margin-left: 20px;
-            padding: 12px;
+            padding: 15px;
             background-color: #ffffff;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #eee;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .camera-group {
+            width: 100%;
         }
 
         .actions {
@@ -308,56 +400,99 @@
             display: flex;
             gap: 12px;
             justify-content: center;
-            padding: 15px;
+            padding: 20px;
             background-color: #ffffff;
             border-top: 1px solid #eee;
+            border-radius: 0 0 8px 8px;
         }
 
         .save-btn {
             background: linear-gradient(to bottom, #ff6600, #e65c00);
             color: white;
-            padding: 12px 24px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 3px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
-
+        
         .save-btn:hover {
             background: linear-gradient(to bottom, #e65c00, #cc5200);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
         }
 
         input[type="radio"] {
-            margin-right: 6px;
+            margin-right: 8px;
+            transform: scale(1.2);
         }
 
-        .radio-group {
-            margin: 8px 0;
-        }
 
         textarea {
-            min-height: 80px;
+            min-height: 100px;
             resize: vertical;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        @media screen and (max-width: 720px) {
+            .stream-row {
+                flex-direction: column !important;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="tabs">
-            <div class="tab active" data-tab="server-main">Основные вопросы для расчета серверного оборудования</div>
-            <div class="tab" data-tab="server-tech">Вопросы для подбора серверного оборудования</div>
-            <div class="tab" data-tab="client">Вопросы для расчета клиентского оборудования</div>
-        </div>
 
-        <!-- Первая вкладка: Основные вопросы для расчета серверного оборудования -->
-        <div id="server-main" class="tab-content active">
-            <h1>Основные вопросы для расчета серверного оборудования</h1>
+        <!-- Первая вкладка: Опросный лист для подбора оборудования видеонаблюдения -->
+        <div id="server-main" class="section">
+            <h1>Опросный лист для подбора оборудования видеонаблюдения</h1>
             
+            <div id="detailed-questions">
+                <h2>Какое разрешение будет использоваться у камер? Укажите разрешение основного и дополнительного потока.</h2>
             <div class="form-group">
+                    <label style="margin-top: 15px;"></label>
+                                    <div class="form-group">
+                                        <label>Параметры видеопотоков:</label>
+                                        <div class="streams-container">
+                                            <!-- Первая строка потоков -->
+                                            <div class="stream-row">
+                                                <div class="stream-field" style="align-self: baseline;">
+                                                    <label>Количество камер:</label>
+                                                    <input type="number" id="camera-count" min="1" value="1">
+                                                </div>
+                                                <div class="stream-field" style="align-self: baseline;">
+                                                    <label>Количество потоков:</label>
+                                                    <select id="stream-count">
+                                                        <option value="1">1</option>
+                                                        <option value="2" selected>2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                                <!-- Динамически добавляемые строки потоков -->
+                                                <div id="additional-streams" style="flex: 1;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                      <div class="form-group">
+                            <div id="camera-groups-container">
+                                <!-- Динамически добавляемые группы камер -->
+                            </div>
+                            <button id="add-camera-group" class="add-btn" style="margin-top: 1px;">Добавить группу камер</button>
+                              <div style="margin-top: 50px;">
+                                <strong>Общее количество камер во всех группах: <span id="total-group-cameras" class="total-cameras">0</span></strong>
+                            </div>
+                        </div>
+
+            <div class="form-group" style="margin-top: 15px;">
                 <label>Какую аналитику вы хотели бы использовать?</label>
                 <div id="analytics-container">
                     <!-- Динамически добавляемые строки аналитики -->
@@ -368,109 +503,7 @@
                 </div>
             </div>
 
-            <button id="show-detailed" class="btn">Указать точные характеристики потоков камер</button>
             
-            <div id="detailed-questions" class="hidden">
-                <h2>Параметры видеопотоков</h2>
-                
-                <div class="form-group">
-                    <label>Количество камер:</label>
-                    <input type="number" id="camera-count" min="1" value="1">
-                </div>
-                
-                <div class="form-group">
-                    <label>Какое разрешение будет использоваться у камер? Укажите разрешение основного и дополнительного потока.</label>
-                    <div class="stream-section">
-                        <div class="form-group">
-                            <label>Основной поток:</label>
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <select id="main-stream">
-                                    <option value="0.3">0,3 MP</option>
-                                    <option value="0.4">0,4 MP</option>
-                                    <option value="1">1 MP</option>
-                                    <option value="1.3">1,3 MP</option>
-                                    <option value="2" selected>2 MP</option>
-                                    <option value="3">3 MP</option>
-                                    <option value="4">4 MP</option>
-                                    <option value="5">5 MP</option>
-                                    <option value="6">6 MP</option>
-                                    <option value="8">8 MP</option>
-                                    <option value="10">10 MP</option>
-                                    <option value="12">12 MP</option>
-                                </select>
-                                <select id="main-stream-codec">
-                                    <option value="h264" selected>H.264</option>
-                                    <option value="h265">H.265</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Дополнительный поток:</label>
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <select id="secondary-stream">
-                                    <option value="0.3" selected>0,3 MP</option>
-                                    <option value="0.4">0,4 MP</option>
-                                    <option value="1">1 MP</option>
-                                    <option value="1.3">1,3 MP</option>
-                                    <option value="2">2 MP</option>
-                                    <option value="3">3 MP</option>
-                                    <option value="4">4 MP</option>
-                                    <option value="5">5 MP</option>
-                                    <option value="6">6 MP</option>
-                                    <option value="8">8 MP</option>
-                                    <option value="10">10 MP</option>
-                                    <option value="12">12 MP</option>
-                                </select>
-                                <select id="secondary-stream-codec">
-                                    <option value="h264" selected>H.264</option>
-                                    <option value="h265">H.265</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div id="third-stream-container" class="hidden">
-                            <div class="form-group">
-                                <label>Дополнительный поток 2:</label>
-                                <div style="display: flex; gap: 10px; align-items: center;">
-                                    <select id="third-stream">
-                                        <option value="0.3" selected>0,3 MP</option>
-                                        <option value="0.4">0,4 MP</option>
-                                        <option value="1">1 MP</option>
-                                        <option value="1.3">1,3 MP</option>
-                                        <option value="2">2 MP</option>
-                                        <option value="3">3 MP</option>
-                                        <option value="4">4 MP</option>
-                                        <option value="5">5 MP</option>
-                                        <option value="6">6 MP</option>
-                                        <option value="8">8 MP</option>
-                                        <option value="10">10 MP</option>
-                                        <option value="12">12 MP</option>
-                                    </select>
-                                    <select id="third-stream-codec">
-                                        <option value="h264" selected>H.264</option>
-                                        <option value="h265">H.265</option>
-                                    </select>
-                                    <button id="remove-third-stream" class="remove-btn">-</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button id="add-third-stream" class="btn">Добавить третий поток</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Группы камер:</label>
-                    <div id="camera-groups-container">
-                        <!-- Динамически добавляемые группы камер -->
-                    </div>
-                    <button id="add-camera-group" class="add-btn">+</button>
-                    <div style="margin-top: 10px;">
-                        <strong>Общее количество камер во всех группах: <span id="total-group-cameras" class="total-cameras">0</span></strong>
-                    </div>
-                </div>
-            </div>
 
             <div class="form-group">
                 <label>На какую ОС ориентируетесь?</label>
@@ -494,15 +527,15 @@
 
             <div class="form-group">
                 <label>Опишите архитектуру системы видеонаблюдения, которую хотели бы видеть:</label>
-                <div>
+                <div class="radio-item">
                     <input type="radio" id="architecture-a" name="architecture" value="a">
                     <label for="architecture-a">Единый центр обработки видео, камеры с трансляцией видео на объектах</label>
                 </div>
-                <div>
+                <div class="radio-item">
                     <input type="radio" id="architecture-b" name="architecture" value="b">
                     <label for="architecture-b">Сервер и камеры на каждом объекте</label>
                 </div>
-                <div>
+                <div class="radio-item">
                     <input type="radio" id="architecture-c" name="architecture" value="c">
                     <label for="architecture-c">Свой вариант ответа</label>
                 </div>
@@ -518,9 +551,10 @@
         </div>
 
         <!-- Вторая вкладка: Вопросы для подбора серверного оборудования-->
-        <div id="server-tech" class="tab-content">
-            <h1>Вопросы для подбора серверного оборудования</h1>
-            
+<div class="container">
+        <div id="server-tech" class="section">
+            <!-- <h1>Вопросы для подбора серверного оборудования</h1> -->
+        
             <div class="form-group">
                 <label>Подобрать серверное оборудование для видеонаблюдения?</label>
                 <label class="toggle-switch">
@@ -530,7 +564,7 @@
             </div>
 
             <div id="server-questions">
-                <h2>Вопросы для подбора серверного оборудования:</h2>
+                <!-- <h2>Вопросы для подбора серверного оборудования:</h2> -->
                 
                 <div class="form-group">
                     <label>В каком исполнении должен быть корпус сервера?</label>
@@ -645,7 +679,7 @@
         </div>
 
         <!-- Третья вкладка: Вопросы для расчета клиентского оборудования -->
-        <div id="client" class="tab-content">
+        <div id="client" class="section">
             <h1>Вопросы для расчета клиентского оборудования</h1>
             
             <div class="form-group">
@@ -769,14 +803,12 @@
                 </div>
             </div>
         </div>
-
         <!-- Кнопки сохранения -->
         <div class="actions">
             <button id="copy-to-clipboard" class="save-btn">Сохранить в буфер</button>
             <button id="save-to-file" class="save-btn">Сохранить результат в txt документ</button>
         </div>
     </div>
-
     <script>
         // Функциональность вкладок
         document.querySelectorAll('.tab').forEach(tab => {
@@ -876,10 +908,12 @@
             const group = document.createElement('div');
             group.className = 'camera-group';
             group.style.border = '1px solid #eee';
-            group.style.borderRadius = '5px';
-            group.style.padding = '15px';
-            group.style.marginBottom = '15px';
+            group.style.borderRadius = '8px';
+            group.style.padding = '20px';
+            group.style.marginBottom = '20px';
             group.style.backgroundColor = '#f9f9f9';
+            group.style.boxShadow = '0 1px 4px rgba(0, 0, 0, 0.05)';
+            group.style.width = '100%';
             
             // Создаем заголовок группы
             const header = document.createElement('div');
@@ -892,6 +926,8 @@
             title.textContent = 'Группа камер';
             title.style.margin = '0';
             title.style.color = '#ff6600';
+            title.style.fontSize = '18px';
+            title.style.fontWeight = '600';
             
             const removeBtn = document.createElement('button');
             removeBtn.className = 'remove-btn';
@@ -914,81 +950,28 @@
             countGroup.innerHTML = '<label>Количество камер:</label><input type="number" class="group-camera-count" min="1" value="1">';
             groupContent.appendChild(countGroup);
             
-            // Потоки группы
+            // Потоки группы с гибкой системой
             const streamsGroup = document.createElement('div');
             streamsGroup.className = 'stream-section';
             streamsGroup.innerHTML = `
-                <h4>Потоки группы</h4>
-                <div class="form-group">
-                    <label>Основной поток:</label>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <select class="group-main-stream">
-                            <option value="0.3">0,3 MP</option>
-                            <option value="0.4">0,4 MP</option>
-                            <option value="1">1 MP</option>
-                            <option value="1.3">1,3 MP</option>
-                            <option value="2" selected>2 MP</option>
-                            <option value="3">3 MP</option>
-                            <option value="4">4 MP</option>
-                            <option value="5">5 MP</option>
-                            <option value="6">6 MP</option>
-                            <option value="8">8 MP</option>
-                            <option value="10">10 MP</option>
-                            <option value="12">12 MP</option>
-                        </select>
-                        <select class="group-main-stream-codec">
-                            <option value="h264" selected>H.264</option>
-                            <option value="h265">H.265</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Дополнительный поток:</label>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <select class="group-secondary-stream">
-                            <option value="0.3" selected>0,3 MP</option>
-                            <option value="0.4">0,4 MP</option>
-                            <option value="1">1 MP</option>
-                            <option value="1.3">1,3 MP</option>
-                            <option value="2">2 MP</option>
-                            <option value="3">3 MP</option>
-                            <option value="4">4 MP</option>
-                            <option value="5">5 MP</option>
-                            <option value="6">6 MP</option>
-                            <option value="8">8 MP</option>
-                            <option value="10">10 MP</option>
-                            <option value="12">12 MP</option>
-                        </select>
-                        <select class="group-secondary-stream-codec">
-                            <option value="h264" selected>H.264</option>
-                            <option value="h265">H.265</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="add-third-stream-group btn">Добавить третий поток</button>
-                <div class="third-stream-group-container hidden">
-                    <div class="form-group">
-                        <label>Дополнительный поток 2:</label>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <select class="group-third-stream">
-                                <option value="0.3" selected>0,3 MP</option>
-                                <option value="0.4">0,4 MP</option>
-                                <option value="1">1 MP</option>
-                                <option value="1.3">1,3 MP</option>
-                                <option value="2">2 MP</option>
-                                <option value="3">3 MP</option>
-                                <option value="4">4 MP</option>
-                                <option value="5">5 MP</option>
-                                <option value="6">6 MP</option>
-                                <option value="8">8 MP</option>
-                                <option value="10">10 MP</option>
-                                <option value="12">12 MP</option>
+                <h4>Параметры видеопотоков группы</h4>
+                <div class="streams-container">
+                    <!-- Первая строка потоков -->
+                    <div class="stream-row">
+                        <div class="stream-field">
+                            <!-- Пустое поле для "Количество камер" -->
+                        </div>
+                        <div class="stream-field" style="align-self: baseline;">
+                            <label>Количество потоков:</label>
+                            <select class="group-stream-count">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
-                            <select class="group-third-stream-codec">
-                                <option value="h264" selected>H.264</option>
-                                <option value="h265">H.265</option>
-                            </select>
-                            <button class="remove-third-stream-group remove-btn">-</button>
+                        </div>
+                        <!-- Динамически добавляемые строки потоков -->
+                        <div class="group-additional-streams" style="flex: 1;">
                         </div>
                     </div>
                 </div>
@@ -1002,23 +985,77 @@
             const countInput = group.querySelector('.group-camera-count');
             countInput.addEventListener('input', updateTotalGroupCameras);
             
-            // Обработчик для кнопки добавления третьего потока
-            const addThirdStreamBtn = group.querySelector('.add-third-stream-group');
-            addThirdStreamBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const thirdStreamContainer = group.querySelector('.third-stream-group-container');
-                thirdStreamContainer.classList.remove('hidden');
-                this.classList.add('hidden');
+            // Обработчик изменения количества потоков в группе
+            const streamCountSelect = group.querySelector('.group-stream-count');
+            streamCountSelect.addEventListener('change', function() {
+                const streamCount = parseInt(this.value);
+                const additionalStreamsContainer = group.querySelector('.group-additional-streams');
+                
+                // Очистим контейнер
+                additionalStreamsContainer.innerHTML = '';
+                
+                // Добавим строки потоков в том же 4-колоночном макете, начиная с потока 1
+                for (let i = 1; i <= streamCount; i++) {
+                    const streamRow = document.createElement('div');
+                    streamRow.className = 'stream-row';
+                    streamRow.innerHTML = `
+                        <div class="stream-field">
+                            <label>Разрешение потока ${i}:</label>
+                            <select class="group-stream-resolution-${i}">
+                                <option value="0.3">0,3 MP</option>
+                                <option value="0.4">0,4 MP</option>
+                                <option value="1">1 MP</option>
+                                <option value="1.3">1,3 MP</option>
+                                <option value="2" selected>2 MP</option>
+                                <option value="3">3 MP</option>
+                                <option value="4">4 MP</option>
+                                <option value="5">5 MP</option>
+                                <option value="6">6 MP</option>
+                                <option value="8">8 MP</option>
+                                <option value="10">10 MP</option>
+                                <option value="12">12 MP</option>
+                            </select>
+                        </div>
+                        <div class="stream-field">
+                            <label>Кодек потока ${i}:</label>
+                            <select class="group-stream-codec-${i}">
+                                <option value="h264" selected>H.264</option>
+                                <option value="h265">H.265</option>
+                            </select>
+                        </div>
+                    `;
+                    additionalStreamsContainer.appendChild(streamRow);
+                }
+                
+                // Установим значения по умолчанию для первого потока
+                const resolutionSelect1 = group.querySelector('.group-stream-resolution-1');
+                const codecSelect1 = group.querySelector('.group-stream-codec-1');
+                
+                if (resolutionSelect1) {
+                    resolutionSelect1.value = "2"; // 2 MP
+                }
+                
+                if (codecSelect1) {
+                    codecSelect1.value = "h264"; // H.264
+                }
+                
+                // Установим значения по умолчанию для второго потока, если он существует
+                if (streamCount >= 2) {
+                    const resolutionSelect2 = group.querySelector('.group-stream-resolution-2');
+                    const codecSelect2 = group.querySelector('.group-stream-codec-2');
+                    
+                    if (resolutionSelect2) {
+                        resolutionSelect2.value = "2"; // 2 MP
+                    }
+                    
+                    if (codecSelect2) {
+                        codecSelect2.value = "h264"; // H.264
+                    }
+                }
             });
             
-            // Обработчик для кнопки удаления третьего потока
-            const removeThirdStreamBtn = group.querySelector('.remove-third-stream-group');
-            removeThirdStreamBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const thirdStreamContainer = group.querySelector('.third-stream-group-container');
-                thirdStreamContainer.classList.add('hidden');
-                addThirdStreamBtn.classList.remove('hidden');
-            });
+            // Автоматически отображаем второй поток при создании новой группы
+            streamCountSelect.dispatchEvent(new Event('change'));
             
             updateTotalGroupCameras();
         }
@@ -1047,38 +1084,15 @@
             });
             
             // Добавляем количество камер из блока "Параметры видеопотоков"
-            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
-                const detailedCameraCount = document.getElementById('camera-count');
-                if (detailedCameraCount) {
-                    total += parseInt(detailedCameraCount.value) || 0;
-                }
+            const detailedCameraCount = document.getElementById('camera-count');
+            if (detailedCameraCount) {
+                total += parseInt(detailedCameraCount.value) || 0;
             }
             
             document.getElementById('total-group-cameras').textContent = total;
         }
 
-        // Показ/скрытие детальных вопросов
-        document.getElementById('show-detailed').addEventListener('click', function() {
-            const detailed = document.getElementById('detailed-questions');
-            detailed.classList.toggle('hidden');
-        });
 
-        // Добавление третьего потока
-        document.getElementById('add-third-stream').addEventListener('click', function(e) {
-            e.preventDefault();
-            const container = document.getElementById('third-stream-container');
-            container.classList.remove('hidden');
-            this.classList.add('hidden');
-        });
-        
-        // Удаление третьего потока
-        document.getElementById('remove-third-stream').addEventListener('click', function(e) {
-            e.preventDefault();
-            const container = document.getElementById('third-stream-container');
-            container.classList.add('hidden');
-            document.getElementById('add-third-stream').classList.remove('hidden');
-        });
-        
         // Обновление общего количества камер при изменении значения в "Параметры видеопотоков"
         document.getElementById('camera-count').addEventListener('input', function() {
             updateTotalCameras();
@@ -1128,14 +1142,47 @@
 
         // Инициализация первой группы камер
         document.getElementById('add-camera-group').addEventListener('click', addCameraGroup);
+        
+        // Автоматическое отображение второго потока при загрузке страницы для основного блока
+        // Установим значение "2" для количества потоков по умолчанию
+        const streamCountSelect = document.getElementById('stream-count');
+        streamCountSelect.value = "2";
+        // Вызовем обработчик события change для отображения полей второго потока
+        // Добавим небольшую задержку, чтобы убедиться, что DOM полностью загружен
+        setTimeout(() => {
+            streamCountSelect.dispatchEvent(new Event('change'));
+        }, 0);
+        
+        // Автоматическое отображение второго потока при загрузке страницы для первой группы камер
+        function initializeFirstGroupStreams() {
+            const firstGroup = document.querySelector('.camera-group');
+            if (firstGroup) {
+                const streamCountSelect = firstGroup.querySelector('.group-stream-count');
+                if (streamCountSelect) {
+                    // Установим значение "2" для количества потоков по умолчанию
+                    streamCountSelect.value = "2";
+                    // Напрямую вызываем обработчик события change
+                    // Добавим небольшую задержку, чтобы убедиться, что DOM полностью загружен
+                    setTimeout(() => {
+                        const event = new Event('change');
+                        streamCountSelect.dispatchEvent(event);
+                    }, 0);
+                }
+            }
+        }
+        
+        // Вызываем инициализацию потоков для первой группы камер после загрузки DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFirstGroupStreams();
+        });
 
         // Показ/скрытие вопросов клиентского оборудования
         document.getElementById('select-client-equipment').addEventListener('change', function() {
             const clientQuestions = document.getElementById('client-questions');
             if (this.checked) {
                 clientQuestions.classList.remove('hidden');
-                // Изменяем цвет переключателя на светло зеленый при выборе "да"
-                this.parentNode.querySelector('.slider').style.backgroundColor = '#4CAF50';
+                // Изменяем цвет переключателя на оранжевый при выборе "да"
+                this.parentNode.querySelector('.slider').style.backgroundColor = '#ff6600';
             } else {
                 clientQuestions.classList.add('hidden');
                 // Возвращаем обычный цвет при выборе "нет"
@@ -1148,7 +1195,7 @@
             let markdown = "# Опросный лист Macroscop\n\n";
             
             // Первая вкладка
-            markdown += "## Основные вопросы для расчета серверного оборудования\n\n";
+            markdown += "## Опросный лист для подбора оборудования видеонаблюдения\n\n";
             
             // Аналатика
             markdown += "### Какую аналитику вы хотели бы использовать?\n";
@@ -1165,38 +1212,33 @@
             });
             
             // Добавляем количество камер из блока "Параметры видеопотоков"
-            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
-                const detailedCameraCount = document.getElementById('camera-count').value;
-                markdown += `- Камеры из блока "Параметры видеопотоков": ${detailedCameraCount} камер\n`;
-                totalCameras += parseInt(detailedCameraCount) || 0;
-            }
+            const detailedCameraCount = document.getElementById('camera-count').value;
+            markdown += `- Камеры из блока "Параметры видеопотоков": ${detailedCameraCount} камер\n`;
+            totalCameras += parseInt(detailedCameraCount) || 0;
             
             markdown += `\n**Общее количество аналитики: ${totalCameras}**\n\n`;
             
             // Параметры видеопотоков
-            if (!document.getElementById('detailed-questions').classList.contains('hidden')) {
-                markdown += "### Параметры видеопотоков\n";
-                const cameraCount = document.getElementById('camera-count').value;
-                const mainStream = document.getElementById('main-stream').value;
-                const secondaryStream = document.getElementById('secondary-stream').value;
-                markdown += `- Количество камер: ${cameraCount}\n`;
-                markdown += `- Основной поток: ${mainStream} MP\n`;
-                markdown += `- Дополнительный поток: ${secondaryStream} MP\n`;
-                
-                // Добавляем информацию о кодеках
-                const mainStreamCodec = document.getElementById('main-stream-codec').value;
-                const secondaryStreamCodec = document.getElementById('secondary-stream-codec').value;
-                markdown += `- Кодек основного потока: ${mainStreamCodec.toUpperCase()}\n`;
-                markdown += `- Кодек дополнительного потока: ${secondaryStreamCodec.toUpperCase()}\n`;
-                
-                if (!document.getElementById('third-stream-container').classList.contains('hidden')) {
-                    const thirdStream = document.getElementById('third-stream').value;
-                    const thirdStreamCodec = document.getElementById('third-stream-codec').value;
-                    markdown += `- Дополнительный поток 2: ${thirdStream} MP\n`;
-                    markdown += `- Кодек дополнительного потока 2: ${thirdStreamCodec.toUpperCase()}\n`;
-                }
-                markdown += "\n";
+            markdown += "### Параметры видеопотоков\n";
+            const cameraCount = document.getElementById('camera-count').value;
+            const streamCount = document.getElementById('stream-count').value;
+            const streamResolution = document.getElementById('stream-resolution').value;
+            const streamCodec = document.getElementById('stream-codec').value;
+            
+            markdown += `- Количество камер: ${cameraCount}\n`;
+            markdown += `- Количество потоков: ${streamCount}\n`;
+            markdown += `- Разрешение потока 1: ${streamResolution} MP\n`;
+            markdown += `- Кодек потока 1: ${streamCodec.toUpperCase()}\n`;
+            
+            // Добавляем информацию о дополнительных потоках
+            for (let i = 2; i <= streamCount; i++) {
+                const additionalResolution = document.getElementById(`stream-resolution-${i}`).value;
+                const additionalCodec = document.getElementById(`stream-codec-${i}`).value;
+                markdown += `- Разрешение потока ${i}: ${additionalResolution} MP\n`;
+                markdown += `- Кодек потока ${i}: ${additionalCodec.toUpperCase()}\n`;
             }
+            
+            markdown += "\n";
             
             // ОС
             const os = document.getElementById('os').value;
@@ -1229,22 +1271,23 @@
             let totalGroupCameras = 0;
             document.querySelectorAll('.camera-group').forEach((group, index) => {
                 const cameraCount = group.querySelector('.group-camera-count').value;
-                const mainStream = group.querySelector('.group-main-stream').value;
-                const mainStreamCodec = group.querySelector('.group-main-stream-codec').value;
-                const secondaryStream = group.querySelector('.group-secondary-stream').value;
-                const secondaryStreamCodec = group.querySelector('.group-secondary-stream-codec').value;
+                const streamCount = group.querySelector('.group-stream-count').value;
+                // Теперь первая строка потоков тоже имеет индекс 1
+                const streamResolution = group.querySelector('.group-stream-resolution-1') ? group.querySelector('.group-stream-resolution-1').value : group.querySelector('.group-stream-resolution').value;
+                const streamCodec = group.querySelector('.group-stream-codec-1') ? group.querySelector('.group-stream-codec-1').value : group.querySelector('.group-stream-codec').value;
                 
                 markdown += `\n**Группа ${index + 1}**\n`;
                 markdown += `- Количество камер: ${cameraCount}\n`;
-                markdown += `- Основной поток: ${mainStream} MP (${mainStreamCodec.toUpperCase()})\n`;
-                markdown += `- Дополнительный поток: ${secondaryStream} MP (${secondaryStreamCodec.toUpperCase()})\n`;
+                markdown += `- Количество потоков: ${streamCount}\n`;
+                markdown += `- Разрешение потока 1: ${streamResolution} MP\n`;
+                markdown += `- Кодек потока 1: ${streamCodec.toUpperCase()}\n`;
                 
-                // Проверяем наличие третьего потока
-                const thirdStreamContainer = group.querySelector('.third-stream-group-container');
-                if (!thirdStreamContainer.classList.contains('hidden')) {
-                    const thirdStream = group.querySelector('.group-third-stream').value;
-                    const thirdStreamCodec = group.querySelector('.group-third-stream-codec').value;
-                    markdown += `- Дополнительный поток 2: ${thirdStream} MP (${thirdStreamCodec.toUpperCase()})\n`;
+                // Добавляем информацию о дополнительных потоках
+                for (let i = 2; i <= streamCount; i++) {
+                    const additionalResolution = group.querySelector(`.group-stream-resolution-${i}`) ? group.querySelector(`.group-stream-resolution-${i}`).value : 'Не указано';
+                    const additionalCodec = group.querySelector(`.group-stream-codec-${i}`) ? group.querySelector(`.group-stream-codec-${i}`).value : 'Не указано';
+                    markdown += `- Разрешение потока ${i}: ${additionalResolution} MP\n`;
+                    markdown += `- Кодек потока ${i}: ${additionalCodec.toUpperCase()}\n`;
                 }
                 
                 totalGroupCameras += parseInt(cameraCount) || 0;
@@ -1415,6 +1458,100 @@
                 URL.revokeObjectURL(url);
             }, 100);
         });
+        // Обработчик изменения количества потоков
+        document.getElementById('stream-count').addEventListener('change', function() {
+            const streamCount = parseInt(this.value);
+            const additionalStreamsContainer = document.getElementById('additional-streams');
+            
+            // Очистим контейнер
+            additionalStreamsContainer.innerHTML = '';
+            
+            // Добавим дополнительные строки потоков в том же 4-колоночном макете
+            for (let i = 1; i <= streamCount; i++) {
+                const streamRow = document.createElement('div');
+                streamRow.className = 'stream-row';
+                streamRow.innerHTML = `
+                    <div class="stream-field">
+                        <label>Разрешение потока ${i}:</label>
+                        <select id="stream-resolution-${i}">
+                            <option value="0.3">0,3 MP</option>
+                            <option value="0.4">0,4 MP</option>
+                            <option value="1">1 MP</option>
+                            <option value="1.3">1,3 MP</option>
+                            <option value="2" selected>2 MP</option>
+                            <option value="3">3 MP</option>
+                            <option value="4">4 MP</option>
+                            <option value="5">5 MP</option>
+                            <option value="6">6 MP</option>
+                            <option value="8">8 MP</option>
+                            <option value="10">10 MP</option>
+                            <option value="12">12 MP</option>
+                        </select>
+                    </div>
+                    <div class="stream-field">
+                        <label>Кодек потока ${i}:</label>
+                        <select id="stream-codec-${i}">
+                            <option value="h264" selected>H.264</option>
+                            <option value="h265">H.265</option>
+                        </select>
+                    </div>
+                `;
+                additionalStreamsContainer.appendChild(streamRow);
+            }
+            
+            // Если количество потоков равно 2 (по умолчанию), убедимся, что поля отображаются и имеют правильные значения
+            if (streamCount === 2) {
+                // Проверим, есть ли уже поля для второго потока
+                let existingResolution = document.getElementById('stream-resolution-2');
+                let existingCodec = document.getElementById('stream-codec-2');
+                
+                // Если полей нет, создадим их
+                if (!existingResolution && !existingCodec) {
+                    const streamRow = document.createElement('div');
+                    streamRow.className = 'stream-row';
+                    streamRow.innerHTML = `
+                        <div class="stream-field">
+                            <label>Разрешение потока 2:</label>
+                            <select id="stream-resolution-2">
+                                <option value="0.3">0,3 MP</option>
+                                <option value="0.4">0,4 MP</option>
+                                <option value="1">1 MP</option>
+                                <option value="1.3">1,3 MP</option>
+                                <option value="2" selected>2 MP</option>
+                                <option value="3">3 MP</option>
+                                <option value="4">4 MP</option>
+                                <option value="5">5 MP</option>
+                                <option value="6">6 MP</option>
+                                <option value="8">8 MP</option>
+                                <option value="10">10 MP</option>
+                                <option value="12">12 MP</option>
+                            </select>
+                        </div>
+                        <div class="stream-field">
+                            <label>Кодек потока 2:</label>
+                            <select id="stream-codec-2">
+                                <option value="h264" selected>H.264</option>
+                                <option value="h265">H.265</option>
+                            </select>
+                        </div>
+                    `;
+                    additionalStreamsContainer.appendChild(streamRow);
+                }
+                
+                // Установим значения по умолчанию для второго потока
+                const resolutionSelect = document.getElementById('stream-resolution-2');
+                const codecSelect = document.getElementById('stream-codec-2');
+                
+                if (resolutionSelect) {
+                    resolutionSelect.value = "2"; // 2 MP
+                }
+                
+                if (codecSelect) {
+                    codecSelect.value = "h264"; // H.264
+                }
+            }
+        });
     </script>
 </body>
 </html>
+
