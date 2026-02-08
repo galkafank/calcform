@@ -478,15 +478,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
+                                        <button id="add-camera-group" class="add-btn" style="margin-top: 20px;">Добавить группу камер</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                       <div class="form-group">
-                            <div id="camera-groups-container">
-                                <!-- Динамически добавляемые группы камер -->
-                            </div>
-                            <button id="add-camera-group" class="add-btn" style="margin-top: 1px;">Добавить группу камер</button>
                               <div style="margin-top: 50px;">
                                 <strong>Общее количество камер во всех группах: <span id="total-group-cameras" class="total-cameras">0</span></strong>
                             </div>
@@ -902,7 +899,16 @@
 
         // Добавление группы камер
         function addCameraGroup() {
-            const container = document.getElementById('camera-groups-container');
+            // Получаем контейнер для групп камер или создаем его, если он еще не существует
+            let groupsContainer = document.getElementById('camera-groups-container');
+            if (!groupsContainer) {
+                groupsContainer = document.createElement('div');
+                groupsContainer.id = 'camera-groups-container';
+                // Вставляем контейнер для групп камер перед кнопкой
+                const addButton = document.getElementById('add-camera-group');
+                addButton.parentNode.insertBefore(groupsContainer, addButton);
+            }
+            
             const group = document.createElement('div');
             group.className = 'camera-group';
             group.style.border = '1px solid #eee';
@@ -931,7 +937,7 @@
             removeBtn.className = 'remove-btn';
             removeBtn.textContent = '-';
             removeBtn.onclick = function() {
-                container.removeChild(group);
+                groupsContainer.removeChild(group);
                 updateTotalGroupCameras();
             };
             
@@ -977,7 +983,11 @@
             groupContent.appendChild(streamsGroup);
             
             group.appendChild(groupContent);
-            container.appendChild(group);
+            groupsContainer.appendChild(group);
+            
+            // Перемещаем кнопку под только что созданную группу
+            const addButton = document.getElementById('add-camera-group');
+            groupsContainer.parentNode.insertBefore(addButton, group.nextSibling);
             
             // Добавляем обработчики событий
             const countInput = group.querySelector('.group-camera-count');
@@ -1043,7 +1053,7 @@
                     const codecSelect2 = group.querySelector('.group-stream-codec-2');
                     
                     if (resolutionSelect2) {
-                        resolutionSelect2.value = "2"; // 2 MP
+                        resolutionSelect2.value = "0.3"; // 0,3 MP
                     }
                     
                     if (codecSelect2) {
@@ -1541,7 +1551,7 @@
                 const codecSelect = document.getElementById('stream-codec-2');
                 
                 if (resolutionSelect) {
-                    resolutionSelect.value = "2"; // 2 MP
+                    resolutionSelect.value = "0.3"; // 0,3 MP
                 }
                 
                 if (codecSelect) {
@@ -1552,4 +1562,3 @@
     </script>
 </body>
 </html>
-
