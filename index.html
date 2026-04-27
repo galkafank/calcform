@@ -594,7 +594,7 @@
             width: 100%;
             border: 1.5px solid var(--line) !important;
             border-radius: 22px !important;
-            background: var(--accent-soft) !important;
+            background: #fff !important;
             box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05) !important;
         }
 
@@ -831,9 +831,9 @@
             
             <div id="detailed-questions">
                 <h2>Какое разрешение потоков будет использоваться у камер?</h2>
-                <div class="form-group stream-setup camera-group" style="border: 1px solid #eee; border-radius: 8px; padding: 16px; margin-bottom: 16px; background-color: #f9f9f9; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); width: 100%;">
+                <div class="form-group stream-setup camera-group" style="border: 1.5px solid #e6e0df; border-radius: 22px; padding: 16px; margin-bottom: 16px; background-color: #fff; box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05); width: 100%;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <h3 style="margin: 0; color: #1f212a; font-size: 18px; font-weight: 600;" contenteditable="true">Камеры</h3>
+                        <h3 style="margin: 0; color: #1f212a; font-size: 18px; font-weight: 600;" contenteditable="true">Камеры 1</h3>
                     </div>
                     <strong>Параметры видеопотоков:</strong>
                     <div class="streams-container">
@@ -1297,12 +1297,12 @@
             
             const group = document.createElement('div');
             group.className = 'camera-group';
-            group.style.border = '1px solid #eee';
-            group.style.borderRadius = '8px';
+            group.style.border = '1.5px solid #e6e0df';
+            group.style.borderRadius = '22px';
             group.style.padding = '16px';
             group.style.marginBottom = '16px';
-            group.style.backgroundColor = '#f9f9f9';
-            group.style.boxShadow = '0 1px 4px rgba(0, 0, 0, 0.05)';
+            group.style.backgroundColor = '#fff';
+            group.style.boxShadow = '0 10px 24px rgba(33, 39, 91, 0.05)';
             group.style.width = '100%';
             
             // Создаем заголовок группы
@@ -1312,8 +1312,12 @@
             header.style.alignItems = 'center';
             header.style.marginBottom = '8px';
             
+            // Определяем номер новой группы
+            const existingGroups = document.querySelectorAll('.camera-group').length;
+            const groupNumber = existingGroups + 1;
+            
             const title = document.createElement('h3');
-            title.textContent = 'Камеры';
+            title.textContent = 'Камеры ' + groupNumber;
             title.style.margin = '0';
             title.style.color = '#1f212a';
             title.style.fontSize = '18px';
