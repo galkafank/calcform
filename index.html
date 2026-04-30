@@ -68,7 +68,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     letter-spacing: -0.03em;
     text-transform: lowercase;
@@ -125,7 +125,7 @@
 
         h1 {
     margin: 0 0 8px;
-    font-size: 26px;
+    font-size: 30px;
     line-height: 1.1;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -143,7 +143,7 @@
             padding: 0;
             border: 0;
             color: var(--text);
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
         }
 
@@ -151,7 +151,7 @@
         h4 {
             margin: 0 0 8px;
             color: var(--text) !important;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
         }
 
@@ -240,7 +240,7 @@
         }
 
         .stream-setup .streams-container {
-            gap: 10px;
+            gap: 14px;
         }
 
         .stream-row {
@@ -252,7 +252,7 @@
 
         .stream-setup .stream-row {
             grid-template-columns: repeat(2, minmax(140px, 1fr));
-            gap: 6px 12px;
+            gap: 8px 12px;
         }
 
         .stream-field {
@@ -378,49 +378,17 @@
 
         .analytics-row {
             display: grid;
-            grid-template-columns: minmax(110px, 1fr) auto;
+            grid-template-columns: minmax(110px, 1fr) 70px auto auto;
             gap: 6px;
             align-items: center;
-            margin-bottom: 3px;
-            padding: 3px 0;
+            margin-bottom: 5px;
+            padding: 5px 0;
         }
 
-
-        /* Стили для аналитики внутри группы камер */
-        .analytics-section {
-            margin-top: 16px;
-            padding: 12px;
-            border: 1.5px solid var(--line);
-            border-radius: 16px;
-            background: #fff;
-            box-shadow: 0 6px 16px rgba(33, 39, 91, 0.04);
+        .analytics-row .cameras-label {
+            color: var(--muted);
+            font-size: 12px;
         }
-
-        .analytics-section h4 {
-            margin: 0 0 8px 0;
-            font-size: 16px;
-            color: var(--text);
-        }
-
-        .group-analytics-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .group-analytics-row select {
-            flex: 1;
-            border: 1.5px solid var(--line);
-            border-radius: 14px;
-            background: #fff;
-            color: var(--text);
-            padding: 8px 12px;
-            font-size: 13px;
-            outline: none;
-            transition: border-color 0.15s ease;
-        }
-
 
         .add-btn {
             border: 1.5px solid var(--line);
@@ -579,33 +547,24 @@
 
         .stream-section {
             margin-left: 0;
-            padding: 12px;
+            padding: 14px;
             border: 1.5px solid var(--line);
             border-radius: 22px;
             background: #fff;
             box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05);
-        }
-        .stream-section .stream-row {
-            grid-template-columns: repeat(2, minmax(140px, 1fr));
-            gap: 8px 12px;
         }
 
         .camera-group {
             width: 100%;
             border: 1.5px solid var(--line) !important;
             border-radius: 22px !important;
-            background: #fff !important;
+            background: var(--accent-soft) !important;
             box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05) !important;
         }
 
         .camera-group h3 {
             font-size: 18px !important;
             color: var(--text) !important;
-        }
-
-        .camera-group strong {
-            display: block;
-            margin-bottom: 4px;
         }
 
         .actions {
@@ -661,19 +620,19 @@
 }
 
             h1 {
-        margin: 0 0 8px;
-        font-size: 26px;
-        line-height: 1.1;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        color: var(--text);
-        border: 0;
-        background: transparent;
-        box-shadow: none;
-        text-align: left;
-        max-width: 100%;
-        padding: 0;
-    }
+    margin: 0 0 8px;
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: left;
+    max-width: 100%;
+    padding: 0;
+}
 
             .topbar {
     display: flex;
@@ -799,16 +758,6 @@
             font-size: 14px;
             line-height: 1.4;
         }
-        
-        h3[contenteditable="true"] {
-            cursor: text;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 2px;
-            outline: none;
-        }
-        h3[contenteditable="true"]:focus {
-            border-bottom-color: #1fb369;
-        }
     </style>
 </head>
 <body>
@@ -831,10 +780,7 @@
             
             <div id="detailed-questions">
                 <h2>Какое разрешение потоков будет использоваться у камер?</h2>
-                <div class="form-group stream-setup camera-group" style="border: 1.5px solid #e6e0df; border-radius: 22px; padding: 16px; margin-bottom: 16px; background-color: #fff; box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05); width: 100%;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <h3 style="margin: 0; color: #1f212a; font-size: 18px; font-weight: 600;" contenteditable="true">Камеры 1</h3>
-                    </div>
+                <div class="form-group stream-setup">
                     <strong>Параметры видеопотоков:</strong>
                     <div class="streams-container">
                         <div class="stream-row">
@@ -854,21 +800,23 @@
                         </div>
                         <div id="additional-streams"></div>
                     </div>
-                    
-                    <!-- Секция аналитики для основных камер -->
-                    <div class="analytics-section">
-                        <h4>Аналитика</h4>
-                        <div class="group-analytics-container"></div>
-                        <button class="add-btn" type="button" onclick="addGroupAnalyticsRow(this.previousElementSibling)">+ Добавить аналитику</button>
-                    </div>
-                    
-                    <button id="add-camera-group" class="add-btn block" style="margin-top: 16px;">Добавить группу камер</button>
+                    <button id="add-camera-group" class="add-btn block">Добавить группу камер</button>
                 </div>
 
                 <div class="form-group totals-row">
                     <strong>Общее количество камер во всех группах: <span id="total-group-cameras" class="total-cameras">0</span></strong>
                 </div>
 
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Какую аналитику вы хотели бы использовать?</label>
+                <div id="analytics-container">
+                    <!-- Динамически добавляемые строки аналитики -->
+                </div>
+                <button id="add-analytics" class="add-btn">+</button>
+                <div style="margin-top: 10px;">
+                    <strong>Общее количество аналитики: <span id="total-cameras" class="total-cameras">0</span></strong>
+                </div>
+            </div>
 
             
 
@@ -1252,15 +1200,14 @@
             "Обнаружение падений"
         ];
 
-
-        // Добавление строки аналитики для группы камер
-        function addGroupAnalyticsRow(container) {
+        // Добавление строки аналитики
+        function addAnalyticsRow() {
+            const container = document.getElementById('analytics-container');
             const row = document.createElement('div');
-            row.className = 'group-analytics-row';
+            row.className = 'analytics-row';
             
             // Создаем select для аналитики
             const select = document.createElement('select');
-            select.style.flex = '1';
             analyticsList.forEach(analytic => {
                 const option = document.createElement('option');
                 option.value = analytic;
@@ -1268,19 +1215,39 @@
                 select.appendChild(option);
             });
             
+            // Создаем input для количества камер
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.min = '0';
+            input.value = '0';
+            input.className = 'camera-count';
+            
+            // Создаем метку
+            const label = document.createElement('span');
+            label.className = 'cameras-label';
+            label.textContent = 'кол-во камер';
+            
             // Создаем кнопку удаления
             const removeBtn = document.createElement('button');
             removeBtn.className = 'remove-btn';
             removeBtn.textContent = '-';
             removeBtn.onclick = function() {
                 container.removeChild(row);
+                updateTotalCameras();
             };
             
             // Добавляем все элементы в строку
             row.appendChild(select);
+            row.appendChild(input);
+            row.appendChild(label);
             row.appendChild(removeBtn);
             
+            // Добавляем обработчик изменения количества камер
+            input.addEventListener('input', updateTotalCameras);
+            select.addEventListener('change', updateTotalCameras);
+            
             container.appendChild(row);
+            updateTotalCameras();
         }
 
         // Добавление группы камер
@@ -1297,12 +1264,12 @@
             
             const group = document.createElement('div');
             group.className = 'camera-group';
-            group.style.border = '1.5px solid #e6e0df';
-            group.style.borderRadius = '22px';
-            group.style.padding = '16px';
-            group.style.marginBottom = '16px';
-            group.style.backgroundColor = '#fff';
-            group.style.boxShadow = '0 10px 24px rgba(33, 39, 91, 0.05)';
+            group.style.border = '1px solid #eee';
+            group.style.borderRadius = '8px';
+            group.style.padding = '20px';
+            group.style.marginBottom = '20px';
+            group.style.backgroundColor = '#f9f9f9';
+            group.style.boxShadow = '0 1px 4px rgba(0, 0, 0, 0.05)';
             group.style.width = '100%';
             
             // Создаем заголовок группы
@@ -1310,19 +1277,14 @@
             header.style.display = 'flex';
             header.style.justifyContent = 'space-between';
             header.style.alignItems = 'center';
-            header.style.marginBottom = '8px';
-            
-            // Определяем номер новой группы
-            const existingGroups = document.querySelectorAll('.camera-group').length;
-            const groupNumber = existingGroups + 1;
+            header.style.marginBottom = '10px';
             
             const title = document.createElement('h3');
-            title.textContent = 'Камеры ' + groupNumber;
+            title.textContent = 'Группа камер';
             title.style.margin = '0';
             title.style.color = '#1f212a';
             title.style.fontSize = '18px';
             title.style.fontWeight = '600';
-            title.setAttribute('contenteditable', 'true');
             
             const removeBtn = document.createElement('button');
             removeBtn.className = 'remove-btn';
@@ -1339,18 +1301,24 @@
             // Создаем поля для группы камер
             const groupContent = document.createElement('div');
             
+            // Количество камер в группе
+            const countGroup = document.createElement('div');
+            countGroup.className = 'form-group';
+            countGroup.innerHTML = '<label>Количество камер:</label><input type="number" class="group-camera-count" min="1" value="1">';
+            groupContent.appendChild(countGroup);
+            
             // Потоки группы с гибкой системой
             const streamsGroup = document.createElement('div');
             streamsGroup.className = 'stream-section';
             streamsGroup.innerHTML = `
-                <strong>Параметры видеопотоков:</strong>
+                <h4>Параметры видеопотоков группы</h4>
                 <div class="streams-container">
+                    <!-- Первая строка потоков -->
                     <div class="stream-row">
                         <div class="stream-field">
-                            <label>Количество камер:</label>
-                            <input type="number" class="group-camera-count" min="1" value="1">
+                            <!-- Пустое поле для "Количество камер" -->
                         </div>
-                        <div class="stream-field">
+                        <div class="stream-field" style="align-self: baseline;">
                             <label>Количество потоков:</label>
                             <select class="group-stream-count">
                                 <option value="1">1</option>
@@ -1359,34 +1327,13 @@
                                 <option value="4">4</option>
                             </select>
                         </div>
+                        <!-- Динамически добавляемые строки потоков -->
+                        <div class="group-additional-streams">
+                        </div>
                     </div>
-                    <div class="group-additional-streams"></div>
                 </div>
             `;
             groupContent.appendChild(streamsGroup);
-            
-            // Секция аналитики для группы
-            const analyticsSection = document.createElement('div');
-            analyticsSection.className = 'analytics-section';
-            
-            const analyticsHeader = document.createElement('h4');
-            analyticsHeader.textContent = 'Аналитика';
-            analyticsSection.appendChild(analyticsHeader);
-            
-            const analyticsContainer = document.createElement('div');
-            analyticsContainer.className = 'group-analytics-container';
-            analyticsSection.appendChild(analyticsContainer);
-            
-            const addAnalyticsBtn = document.createElement('button');
-            addAnalyticsBtn.className = 'add-btn';
-            addAnalyticsBtn.textContent = '+ Добавить аналитику';
-            addAnalyticsBtn.type = 'button';
-            addAnalyticsBtn.onclick = function() {
-                addGroupAnalyticsRow(analyticsContainer);
-            };
-            analyticsSection.appendChild(addAnalyticsBtn);
-            
-            groupContent.appendChild(analyticsSection);
             
             group.appendChild(groupContent);
             groupsContainer.appendChild(group);
@@ -1474,6 +1421,18 @@
             updateTotalGroupCameras();
         }
 
+        // Обновление общего количества камер
+        function updateTotalCameras() {
+            let total = 0;
+            document.querySelectorAll('.analytics-row').forEach(row => {
+                const input = row.querySelector('.camera-count');
+                if (input) {
+                    total += parseInt(input.value) || 0;
+                }
+            });
+            
+            document.getElementById('total-cameras').textContent = total;
+        }
 
         // Обновление общего количества камер во всех группах
         function updateTotalGroupCameras() {
@@ -1497,6 +1456,7 @@
 
         // Обновление общего количества камер при изменении значения в "Параметры видеопотоков"
         document.getElementById('camera-count').addEventListener('input', function() {
+            updateTotalCameras();
             updateTotalGroupCameras();
         });
 
@@ -1557,9 +1517,13 @@
 
         syncOsButtons(osSelect.value);
 
+        // Инициализация первой строки аналитики
+        document.getElementById('add-analytics').addEventListener('click', addAnalyticsRow);
+        // Добавляем первую строку при загрузке
+        addAnalyticsRow();
+
         // Инициализация первой группы камер
         document.getElementById('add-camera-group').addEventListener('click', addCameraGroup);
-        
         
         // Автоматическое отображение второго потока при загрузке страницы для основного блока
         // Установим значение "2" для количества потоков по умолчанию
