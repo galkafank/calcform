@@ -554,17 +554,41 @@
             box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05);
         }
 
+        .camera-group .stream-section {
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+            margin-left: 0;
+        }
+
         .camera-group {
             width: 100%;
-            border: 1.5px solid var(--line) !important;
-            border-radius: 22px !important;
-            background: var(--accent-soft) !important;
-            box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05) !important;
+            border: 1.5px solid var(--line);
+            border-radius: 22px;
+            background: #fff;
+            box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05);
+            margin-bottom: 20px;
         }
 
         .camera-group h3 {
             font-size: 18px !important;
             color: var(--text) !important;
+        }
+
+        .camera-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .camera-group-title {
+            margin: 0;
+            font-size: 18px;
+            color: var(--text);
+            font-weight: 700;
         }
 
         .actions {
@@ -1264,27 +1288,16 @@
             
             const group = document.createElement('div');
             group.className = 'camera-group';
-            group.style.border = '1px solid #eee';
-            group.style.borderRadius = '8px';
-            group.style.padding = '20px';
-            group.style.marginBottom = '20px';
-            group.style.backgroundColor = '#f9f9f9';
-            group.style.boxShadow = '0 1px 4px rgba(0, 0, 0, 0.05)';
-            group.style.width = '100%';
             
             // Создаем заголовок группы
             const header = document.createElement('div');
-            header.style.display = 'flex';
-            header.style.justifyContent = 'space-between';
-            header.style.alignItems = 'center';
-            header.style.marginBottom = '10px';
+            header.className = 'camera-group-header';
             
             const title = document.createElement('h3');
-            title.textContent = 'Группа камер';
-            title.style.margin = '0';
-            title.style.color = '#1f212a';
-            title.style.fontSize = '18px';
-            title.style.fontWeight = '600';
+            title.className = 'camera-group-title';
+            // Нумерация групп
+            const groupNumber = document.querySelectorAll('.camera-group').length + 1;
+            title.textContent = `Группа камер ${groupNumber}`;
             
             const removeBtn = document.createElement('button');
             removeBtn.className = 'remove-btn';
@@ -1298,27 +1311,21 @@
             header.appendChild(removeBtn);
             group.appendChild(header);
             
-            // Создаем поля для группы камер
+            // Создаем поля для группы камер - объединенные в одну строку
             const groupContent = document.createElement('div');
             
-            // Количество камер в группе
-            const countGroup = document.createElement('div');
-            countGroup.className = 'form-group';
-            countGroup.innerHTML = '<label>Количество камер:</label><input type="number" class="group-camera-count" min="1" value="1">';
-            groupContent.appendChild(countGroup);
-            
-            // Потоки группы с гибкой системой
+            // Единый блок параметров видеопотоков группы
             const streamsGroup = document.createElement('div');
             streamsGroup.className = 'stream-section';
             streamsGroup.innerHTML = `
-                <h4>Параметры видеопотоков группы</h4>
                 <div class="streams-container">
-                    <!-- Первая строка потоков -->
+                    <!-- Первая строка с количеством камер и количеством потоков -->
                     <div class="stream-row">
                         <div class="stream-field">
-                            <!-- Пустое поле для "Количество камер" -->
+                            <label>Количество камер:</label>
+                            <input type="number" class="group-camera-count" min="1" value="1">
                         </div>
-                        <div class="stream-field" style="align-self: baseline;">
+                        <div class="stream-field">
                             <label>Количество потоков:</label>
                             <select class="group-stream-count">
                                 <option value="1">1</option>
