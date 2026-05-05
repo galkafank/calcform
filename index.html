@@ -1004,11 +1004,11 @@
                     <label>В каком исполнении должен быть корпус сервера?</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="radio" id="chassis-rack" name="chassis" value="rack">
+                            <input type="checkbox" id="chassis-rack" name="chassis-rack" value="rack">
                             <label for="chassis-rack">rack</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="radio" id="chassis-tower" name="chassis" value="tower">
+                            <input type="checkbox" id="chassis-tower" name="chassis-tower" value="tower">
                             <label for="chassis-tower">tower</label>
                         </div>
                     </div>
@@ -1203,11 +1203,11 @@
                     <label>Какое исполнение корпуса необходимо для клиентского рабочего места?</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="radio" id="client-chassis-rack" name="client-chassis" value="rack">
+                            <input type="checkbox" id="client-chassis-rack" name="client-chassis-rack" value="rack">
                             <label for="client-chassis-rack">rack</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="radio" id="client-chassis-tower" name="client-chassis" value="tower">
+                            <input type="checkbox" id="client-chassis-tower" name="client-chassis-tower" value="tower">
                             <label for="client-chassis-tower">tower</label>
                         </div>
                     </div>
@@ -1740,9 +1740,10 @@
                 markdown += "### Вопросы для подбора серверного оборудования\n";
                 
                 // Корпус сервера
-                const chassis = document.querySelector('input[name="chassis"]:checked');
-                if (chassis) {
-                    markdown += `- В каком исполнении должен быть корпус сервера: ${chassis.value}\n`;
+                const chassisCheckboxes = document.querySelectorAll('input[name^="chassis-"]:checked');
+                if (chassisCheckboxes.length > 0) {
+                    const chassisValues = Array.from(chassisCheckboxes).map(cb => cb.value).join(', ');
+                    markdown += `- В каком исполнении должен быть корпус сервера: ${chassisValues}\n`;
                 }
                 
                 // Мониторы
@@ -1798,7 +1799,7 @@
                 const clientMonitorResolution = document.getElementById('client-monitor-resolution').value;
                 const clientMainStream = document.getElementById('client-main-stream').value;
                 const clientSecondaryStream = document.getElementById('client-secondary-stream').value;
-                const clientChassis = document.querySelector('input[name="client-chassis"]:checked');
+                const clientChassisCheckboxes = document.querySelectorAll('input[name^="client-chassis-"]:checked');
                 const clientRaid1 = document.getElementById('client-raid-1').checked;
                 const clientWorkstations = document.getElementById('client-workstations').value;
                 const clientCamerasPerMonitor = document.getElementById('client-cameras-per-monitor').value;
@@ -1808,6 +1809,10 @@
                 markdown += `- Разрешение мониторов: ${clientMonitorResolution}\n`;
                 markdown += `- Основной поток камер: ${clientMainStream} MP\n`;
                 markdown += `- Дополнительный поток камер: ${clientSecondaryStream} MP\n`;
+                if (clientChassisCheckboxes.length > 0) {
+                    const clientChassisValues = Array.from(clientChassisCheckboxes).map(cb => cb.value).join(', ');
+                    markdown += `- Какое исполнение корпуса необходимо для клиентского рабочего места: ${clientChassisValues}\n`;
+                }
                 
                 // Добавляем информацию о кодеках
                 const clientMainStreamCodec = document.getElementById('client-main-stream-codec').value;
@@ -1949,6 +1954,29 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
             }, 100);
+        });
+
+        // Взаимоисключающие чекбоксы для корпуса сервера
+        document.querySelectorAll('input[name^="chassis-"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // Снимаем все другие чекбоксы в этой группе
+                    document.querySelectorAll('input[name^="chassis-"]').forEach(other => {
+                        if (other !== this) other.checked = false;
+                    });
+                }
+            });
+        });
+
+        // Взаимоисключающие чекбоксы для клиентского корпуса
+        document.querySelectorAll('input[name^="client-chassis-"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    document.querySelectorAll('input[name^="client-chassis-"]').forEach(other => {
+                        if (other !== this) other.checked = false;
+                    });
+                }
+            });
         });
     </script>
 </body>
