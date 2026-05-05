@@ -36,7 +36,7 @@
         .container {
     max-width: 1000px;
     margin: 0 auto 16px;
-    padding: 0 20px 20px;
+    padding: 20px 20px 20px;
     background: var(--surface);
     border: 1.5px solid var(--line);
     border-radius: 18px;
@@ -47,7 +47,7 @@
         .container .container {
     max-width: 1320px;
     margin: 0 auto 16px;
-    padding: 0 24px 24px;
+    padding: 24px 24px 24px;
     background: var(--surface);
     border: 1.5px solid var(--line);
     border-radius: 18px;
@@ -62,6 +62,7 @@
     gap: 12px;
     min-height: 60px;
     border-bottom: 1px solid var(--line);
+    padding: 0 20px;
 }
 
         .topbar-brand {
@@ -269,7 +270,6 @@
             width: 100% !important;
         }
 
-        #additional-streams,
         .group-additional-streams {
             display: grid;
             gap: 12px;
@@ -467,7 +467,7 @@
 
         .os-heading strong {
             margin: 0;
-            font-size: 20px;
+            font-size: 18px;
             line-height: 1;
             letter-spacing: -0.02em;
             color: var(--text);
@@ -475,31 +475,31 @@
 
         .os-heading span {
             margin: 0;
-            font-size: 12px;
-            color: var(--text);
+            font-size: 13px;
+            color: var(--muted);
             font-weight: 600;
         }
 
         .os-options {
             display: inline-flex;
-            gap: 8px;
+            gap: 12px;
             flex-wrap: wrap;
             justify-content: flex-end;
         }
 
         .os-option {
-            height: 44px;
-            min-width: 100px;
-            padding: 0 10px;
+            height: 48px;
+            min-width: 110px;
+            padding: 0 15px;
             border: 1.5px solid var(--line);
-            border-radius: 10px;
+            border-radius: 12px;
             background: #fff;
             color: var(--muted);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            font-size: 10px;
+            gap: 8px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
@@ -536,8 +536,8 @@
         }
 
         .os-icon {
-            width: 13px;
-            height: 13px;
+            width: 18px;
+            height: 18px;
             opacity: 0.9;
         }
 
@@ -570,6 +570,7 @@
             background: #fff;
             box-shadow: 0 10px 24px rgba(33, 39, 91, 0.05);
             margin-bottom: 20px;
+            padding: 20px;
         }
 
         .camera-group h3 {
@@ -782,6 +783,100 @@
             font-size: 14px;
             line-height: 1.4;
         }
+
+        /* Анимации на псевдоэлементах */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes underline {
+            0% { width: 0; left: 50%; }
+            100% { width: 100%; left: 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Пульсация для счетчика камер */
+        .total-cameras {
+            position: relative;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+
+        /* Плавающие точки на фоне контейнера */
+        .container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .container::before {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .container::after {
+            bottom: 30%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        /* Анимация галочки в выбранной ОС */
+        .os-option.active .os-mark {
+            animation: checkmark 0.4s ease-out;
+        }
+
+        /* Анимация при наведении на form-group */
+        .form-group {
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(33, 39, 91, 0.08);
+        }
+
+        .form-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px 0 0 4px;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:hover::before {
+            transform: scaleY(1);
+        }
     </style>
 </head>
 <body>
@@ -805,25 +900,6 @@
             <div id="detailed-questions">
                 <h2>Какое разрешение потоков будет использоваться у камер?</h2>
                 <div class="form-group stream-setup">
-                    <strong>Параметры видеопотоков:</strong>
-                    <div class="streams-container">
-                        <div class="stream-row">
-                            <div class="stream-field">
-                                <label>Количество камер:</label>
-                                <input type="number" id="camera-count" min="1" value="1">
-                            </div>
-                            <div class="stream-field">
-                                <label>Количество потоков:</label>
-                                <select id="stream-count">
-                                    <option value="1">1</option>
-                                    <option value="2" selected>2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="additional-streams"></div>
-                    </div>
                     <button id="add-camera-group" class="add-btn block">Добавить группу камер</button>
                 </div>
 
@@ -1297,7 +1373,7 @@
             title.className = 'camera-group-title';
             // Нумерация групп
             const groupNumber = document.querySelectorAll('.camera-group').length + 1;
-            title.textContent = `Группа камер ${groupNumber}`;
+            title.textContent = `Камеры ${groupNumber}`;
             
             const removeBtn = document.createElement('button');
             removeBtn.className = 'remove-btn';
@@ -1305,6 +1381,8 @@
             removeBtn.onclick = function() {
                 groupsContainer.removeChild(group);
                 updateTotalGroupCameras();
+                console.error('Удаление группы, вызов renumberCameraGroups');
+                renumberCameraGroups();
             };
             
             header.appendChild(title);
@@ -1451,21 +1529,23 @@
                 }
             });
             
-            // Добавляем количество камер из блока "Параметры видеопотоков"
-            const detailedCameraCount = document.getElementById('camera-count');
-            if (detailedCameraCount) {
-                total += parseInt(detailedCameraCount.value) || 0;
-            }
             
             document.getElementById('total-group-cameras').textContent = total;
         }
 
+        // Перенумерация групп камер после удаления
+        function renumberCameraGroups() {
+            console.log('renumberCameraGroups вызвана, количество групп:', document.querySelectorAll('.camera-group').length);
+            document.querySelectorAll('.camera-group').forEach((group, index) => {
+                const title = group.querySelector('.camera-group-title');
+                if (title) {
+                    console.log('Изменяем заголовок группы', index, 'на', `Камеры ${index + 1}`);
+                    title.textContent = `Камеры ${index + 1}`;
+                }
+            });
+        }
 
-        // Обновление общего количества камер при изменении значения в "Параметры видеопотоков"
-        document.getElementById('camera-count').addEventListener('input', function() {
-            updateTotalCameras();
-            updateTotalGroupCameras();
-        });
+
 
         // Показ/скрытие пользовательской архитектуры
         document.querySelectorAll('input[name="architecture"]').forEach(radio => {
@@ -1532,15 +1612,6 @@
         // Инициализация первой группы камер
         document.getElementById('add-camera-group').addEventListener('click', addCameraGroup);
         
-        // Автоматическое отображение второго потока при загрузке страницы для основного блока
-        // Установим значение "2" для количества потоков по умолчанию
-        const streamCountSelect = document.getElementById('stream-count');
-        streamCountSelect.value = "2";
-        // Вызовем обработчик события change для отображения полей второго потока
-        // Добавим небольшую задержку, чтобы убедиться, что DOM полностью загружен
-        setTimeout(() => {
-            streamCountSelect.dispatchEvent(new Event('change'));
-        }, 0);
         
         // Автоматическое отображение второго потока при загрузке страницы для первой группы камер
         function initializeFirstGroupStreams() {
@@ -1562,6 +1633,7 @@
         
         // Вызываем инициализацию потоков для первой группы камер после загрузки DOM
         document.addEventListener('DOMContentLoaded', function() {
+            addCameraGroup();
             initializeFirstGroupStreams();
         });
 
@@ -1600,34 +1672,7 @@
                 }
             });
             
-            // Добавляем количество камер из блока "Параметры видеопотоков"
-            const detailedCameraCount = document.getElementById('camera-count').value;
-            markdown += `- Камеры из блока "Параметры видеопотоков": ${detailedCameraCount} камер\n`;
-            totalCameras += parseInt(detailedCameraCount) || 0;
-            
             markdown += `\n**Общее количество аналитики: ${totalCameras}**\n\n`;
-            
-            // Параметры видеопотоков
-            markdown += "### Параметры видеопотоков\n";
-            const cameraCount = document.getElementById('camera-count').value;
-            const streamCount = document.getElementById('stream-count').value;
-            const streamResolution = document.getElementById('stream-resolution-1').value;
-            const streamCodec = document.getElementById('stream-codec-1').value;
-            
-            markdown += `- Количество камер: ${cameraCount}\n`;
-            markdown += `- Количество потоков: ${streamCount}\n`;
-            markdown += `- Разрешение потока 1: ${streamResolution} MP\n`;
-            markdown += `- Кодек потока 1: ${streamCodec.toUpperCase()}\n`;
-            
-            // Добавляем информацию о дополнительных потоках
-            for (let i = 2; i <= streamCount; i++) {
-                const additionalResolution = document.getElementById(`stream-resolution-${i}`).value;
-                const additionalCodec = document.getElementById(`stream-codec-${i}`).value;
-                markdown += `- Разрешение потока ${i}: ${additionalResolution} MP\n`;
-                markdown += `- Кодек потока ${i}: ${additionalCodec.toUpperCase()}\n`;
-            }
-            
-            markdown += "\n";
             
             // ОС
             const os = document.getElementById('os').value;
@@ -1665,7 +1710,7 @@
                 const streamResolution = group.querySelector('.group-stream-resolution-1') ? group.querySelector('.group-stream-resolution-1').value : group.querySelector('.group-stream-resolution').value;
                 const streamCodec = group.querySelector('.group-stream-codec-1') ? group.querySelector('.group-stream-codec-1').value : group.querySelector('.group-stream-codec').value;
                 
-                markdown += `\n**Группа ${index + 1}**\n`;
+                markdown += `\n**Камеры ${index + 1}**\n`;
                 markdown += `- Количество камер: ${cameraCount}\n`;
                 markdown += `- Количество потоков: ${streamCount}\n`;
                 markdown += `- Разрешение потока 1: ${streamResolution} MP\n`;
@@ -1904,99 +1949,6 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
             }, 100);
-        });
-        // Обработчик изменения количества потоков
-        document.getElementById('stream-count').addEventListener('change', function() {
-            const streamCount = parseInt(this.value);
-            const additionalStreamsContainer = document.getElementById('additional-streams');
-            
-            // Очистим контейнер
-            additionalStreamsContainer.innerHTML = '';
-            
-            // Добавим дополнительные строки потоков в том же 4-колоночном макете
-            for (let i = 1; i <= streamCount; i++) {
-                const streamRow = document.createElement('div');
-                streamRow.className = 'stream-row';
-                streamRow.innerHTML = `
-                    <div class="stream-field">
-                        <label>Разрешение потока ${i}:</label>
-                        <select id="stream-resolution-${i}">
-                            <option value="0.3">0,3 MP</option>
-                            <option value="0.4">0,4 MP</option>
-                            <option value="1">1 MP</option>
-                            <option value="1.3">1,3 MP</option>
-                            <option value="2" selected>2 MP</option>
-                            <option value="3">3 MP</option>
-                            <option value="4">4 MP</option>
-                            <option value="5">5 MP</option>
-                            <option value="6">6 MP</option>
-                            <option value="8">8 MP</option>
-                            <option value="10">10 MP</option>
-                            <option value="12">12 MP</option>
-                        </select>
-                    </div>
-                    <div class="stream-field">
-                        <label>Кодек потока ${i}:</label>
-                        <select id="stream-codec-${i}">
-                            <option value="h264" selected>H.264</option>
-                            <option value="h265">H.265</option>
-                        </select>
-                    </div>
-                `;
-                additionalStreamsContainer.appendChild(streamRow);
-            }
-            
-            // Если количество потоков равно 2 (по умолчанию), убедимся, что поля отображаются и имеют правильные значения
-            if (streamCount === 2) {
-                // Проверим, есть ли уже поля для второго потока
-                let existingResolution = document.getElementById('stream-resolution-2');
-                let existingCodec = document.getElementById('stream-codec-2');
-                
-                // Если полей нет, создадим их
-                if (!existingResolution && !existingCodec) {
-                    const streamRow = document.createElement('div');
-                    streamRow.className = 'stream-row';
-                    streamRow.innerHTML = `
-                        <div class="stream-field">
-                            <label>Разрешение потока 2:</label>
-                            <select id="stream-resolution-2">
-                                <option value="0.3">0,3 MP</option>
-                                <option value="0.4">0,4 MP</option>
-                                <option value="1">1 MP</option>
-                                <option value="1.3">1,3 MP</option>
-                                <option value="2" selected>2 MP</option>
-                                <option value="3">3 MP</option>
-                                <option value="4">4 MP</option>
-                                <option value="5">5 MP</option>
-                                <option value="6">6 MP</option>
-                                <option value="8">8 MP</option>
-                                <option value="10">10 MP</option>
-                                <option value="12">12 MP</option>
-                            </select>
-                        </div>
-                        <div class="stream-field">
-                            <label>Кодек потока 2:</label>
-                            <select id="stream-codec-2">
-                                <option value="h264" selected>H.264</option>
-                                <option value="h265">H.265</option>
-                            </select>
-                        </div>
-                    `;
-                    additionalStreamsContainer.appendChild(streamRow);
-                }
-                
-                // Установим значения по умолчанию для второго потока
-                const resolutionSelect = document.getElementById('stream-resolution-2');
-                const codecSelect = document.getElementById('stream-codec-2');
-                
-                if (resolutionSelect) {
-                    resolutionSelect.value = "0.3"; // 0,3 MP
-                }
-                
-                if (codecSelect) {
-                    codecSelect.value = "h264"; // H.264
-                }
-            }
         });
     </script>
 </body>
