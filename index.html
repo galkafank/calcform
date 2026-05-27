@@ -467,7 +467,7 @@
 
         .os-heading strong {
             margin: 0;
-            font-size: 18px;
+            font-size: 14px;
             line-height: 1;
             letter-spacing: -0.02em;
             color: var(--text);
@@ -475,7 +475,7 @@
 
         .os-heading span {
             margin: 0;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--muted);
             font-weight: 600;
         }
@@ -630,6 +630,22 @@
 
         .hidden {
             display: none;
+        }
+
+        .collapsible {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: max-height 0.7s ease, opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;
+        }
+
+        .collapsible.visible {
+            max-height: 2000px;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
         @media screen and (max-width: 880px) {
@@ -912,7 +928,7 @@
                 <div id="analytics-container">
                     <!-- Динамически добавляемые строки аналитики -->
                 </div>
-                <button id="add-analytics" class="add-btn">+</button>
+                <button id="add-analytics" class="add-btn">Добавить аналитику</button>
                 <div style="margin-top: 10px;">
                     <strong>Общее количество аналитики: <span id="total-cameras" class="total-cameras">0</span></strong>
                 </div>
@@ -948,32 +964,36 @@
             </div>
 
             <div class="form-group">
-                <label>Сколько часов в сутки запись? Сколько дней хранится архив?</label>
-                <div>
-                    <label>Хранение архива, дней:</label>
-                    <input type="number" id="archive-days" min="1" value="30">
-                </div>
-                <div>
-                    <label>Запись, ч/сут:</label>
-                    <input type="number" id="recording-hours" min="1" max="24" value="24">
+                <strong>Глубина архива</strong>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="margin: 0; color: var(--muted); font-weight: 600;">Запись, ч/сут:</label>
+                        <input type="number" id="recording-hours" min="1" max="24" value="24" style="width: 90px;">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="margin: 0; color: var(--muted); font-weight: 600;">Хранение архива, дней:</label>
+                        <input type="number" id="archive-days" min="1" value="30" style="width: 90px;">
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Опишите архитектуру системы видеонаблюдения, которую хотели бы видеть:</label>
-                <div class="radio-item">
-                    <input type="radio" id="architecture-a" name="architecture" value="a">
-                    <label for="architecture-a">Единый центр обработки видео, камеры с трансляцией видео на объектах</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="architecture-a" name="architecture" value="a">
+                        <label for="architecture-a">Единый центр обработки видео, камеры с трансляцией видео на объектах</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="architecture-b" name="architecture" value="b">
+                        <label for="architecture-b">Сервер и камеры на каждом объекте</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="architecture-c" name="architecture" value="c">
+                        <label for="architecture-c">Свой вариант ответа</label>
+                    </div>
                 </div>
-                <div class="radio-item">
-                    <input type="radio" id="architecture-b" name="architecture" value="b">
-                    <label for="architecture-b">Сервер и камеры на каждом объекте</label>
-                </div>
-                <div class="radio-item">
-                    <input type="radio" id="architecture-c" name="architecture" value="c">
-                    <label for="architecture-c">Свой вариант ответа</label>
-                </div>
-                <div id="custom-architecture" class="hidden">
+                <div id="custom-architecture" class="collapsible">
                     <textarea id="custom-architecture-text" rows="4" placeholder="Опишите ваш вариант..."></textarea>
                 </div>
             </div>
@@ -997,7 +1017,7 @@
                 </label>
             </div>
 
-            <div id="server-questions">
+            <div id="server-questions" class="collapsible visible">
                 <!-- <h2>Вопросы для подбора серверного оборудования:</h2> -->
                 
                 <div class="form-group">
@@ -1022,7 +1042,7 @@
                     </label>
                 </div>
 
-                <div id="monitor-questions" class="hidden">
+                <div id="monitor-questions" class="collapsible">
                     <div class="form-group">
                         <label>
                             Какое разрешение мониторов будет использоваться? 
@@ -1096,7 +1116,7 @@
                 </div>
             </div>
 
-            <div id="spec-questions" class="hidden">
+            <div id="spec-questions" class="collapsible">
                 <div class="form-group">
                     <label>Необходим подбор спецификаций сервера, для самостоятельной покупки оборудования?</label>
                     <label class="toggle-switch">
@@ -1124,7 +1144,7 @@
                 </label>
             </div>
 
-            <div id="client-questions" class="hidden">
+            <div id="client-questions" class="collapsible">
                 <div class="form-group">
                     <label>Какое количество мониторов будет использоваться?</label>
                     <input type="number" id="client-monitor-count" min="1" value="1">
@@ -1334,7 +1354,22 @@
             removeBtn.onclick = function() {
                 container.removeChild(row);
                 updateTotalCameras();
+                // Показать/скрыть кнопку удаления у первой строки
+                const firstRow = container.querySelector('.analytics-row');
+                if (firstRow) {
+                    const firstRemoveBtn = firstRow.querySelector('.remove-btn');
+                    firstRemoveBtn.style.visibility = container.querySelectorAll('.analytics-row').length > 1 ? 'visible' : 'hidden';
+                }
             };
+
+            // Скрываем кнопку если это первая строка
+            if (container.querySelectorAll('.analytics-row').length === 0) {
+                removeBtn.style.visibility = 'hidden';
+            } else {
+                // При добавлении новой строки — показываем кнопку у первой
+                const firstRow = container.querySelector('.analytics-row');
+                if (firstRow) firstRow.querySelector('.remove-btn').style.visibility = 'visible';
+            }
             
             // Добавляем все элементы в строку
             row.appendChild(select);
@@ -1381,9 +1416,23 @@
             removeBtn.onclick = function() {
                 groupsContainer.removeChild(group);
                 updateTotalGroupCameras();
-                console.error('Удаление группы, вызов renumberCameraGroups');
                 renumberCameraGroups();
+                // Показать/скрыть кнопку удаления у первой группы
+                const firstGroup = groupsContainer.querySelector('.camera-group');
+                if (firstGroup) {
+                    const firstRemoveBtn = firstGroup.querySelector('.remove-btn');
+                    firstRemoveBtn.style.visibility = groupsContainer.querySelectorAll('.camera-group').length > 1 ? 'visible' : 'hidden';
+                }
             };
+
+            // Скрываем кнопку если это первая группа
+            if (groupsContainer.querySelectorAll('.camera-group').length === 0) {
+                removeBtn.style.visibility = 'hidden';
+            } else {
+                // При добавлении новой группы — показываем кнопку у первой
+                const firstGroup = groupsContainer.querySelector('.camera-group');
+                if (firstGroup) firstGroup.querySelector('.remove-btn').style.visibility = 'visible';
+            }
             
             header.appendChild(title);
             header.appendChild(removeBtn);
@@ -1535,11 +1584,9 @@
 
         // Перенумерация групп камер после удаления
         function renumberCameraGroups() {
-            console.log('renumberCameraGroups вызвана, количество групп:', document.querySelectorAll('.camera-group').length);
             document.querySelectorAll('.camera-group').forEach((group, index) => {
                 const title = group.querySelector('.camera-group-title');
                 if (title) {
-                    console.log('Изменяем заголовок группы', index, 'на', `Камеры ${index + 1}`);
                     title.textContent = `Камеры ${index + 1}`;
                 }
             });
@@ -1547,14 +1594,23 @@
 
 
 
-        // Показ/скрытие пользовательской архитектуры
-        document.querySelectorAll('input[name="architecture"]').forEach(radio => {
-            radio.addEventListener('change', function() {
+        // Показ/скрытие пользовательской архитектуры и взаимоисключающие чекбоксы
+        document.querySelectorAll('input[name="architecture"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
                 const custom = document.getElementById('custom-architecture');
-                if (this.value === 'c') {
-                    custom.classList.remove('hidden');
+                
+                // Показ/скрытие поля для своего варианта
+                if (this.value === 'c' && this.checked) {
+                    custom.classList.add('visible');
                 } else {
-                    custom.classList.add('hidden');
+                    custom.classList.remove('visible');
+                }
+                
+                // Взаимоисключающая логика
+                if (this.checked) {
+                    document.querySelectorAll('input[name="architecture"]').forEach(other => {
+                        if (other !== this) other.checked = false;
+                    });
                 }
             });
         });
@@ -1563,9 +1619,9 @@
         document.getElementById('use-monitors').addEventListener('change', function() {
             const monitorQuestions = document.getElementById('monitor-questions');
             if (this.checked) {
-                monitorQuestions.classList.remove('hidden');
+                monitorQuestions.classList.add('visible');
             } else {
-                monitorQuestions.classList.add('hidden');
+                monitorQuestions.classList.remove('visible');
             }
         });
 
@@ -1575,11 +1631,11 @@
             const specQuestions = document.getElementById('spec-questions');
             
             if (this.checked) {
-                serverQuestions.classList.remove('hidden');
-                specQuestions.classList.add('hidden');
+                serverQuestions.classList.add('visible');
+                specQuestions.classList.remove('visible');
             } else {
-                serverQuestions.classList.add('hidden');
-                specQuestions.classList.remove('hidden');
+                serverQuestions.classList.remove('visible');
+                specQuestions.classList.add('visible');
             }
         });
 
@@ -1606,47 +1662,25 @@
 
         // Инициализация первой строки аналитики
         document.getElementById('add-analytics').addEventListener('click', addAnalyticsRow);
-        // Добавляем первую строку при загрузке
-        addAnalyticsRow();
 
         // Инициализация первой группы камер
         document.getElementById('add-camera-group').addEventListener('click', addCameraGroup);
-        
-        
-        // Автоматическое отображение второго потока при загрузке страницы для первой группы камер
-        function initializeFirstGroupStreams() {
-            const firstGroup = document.querySelector('.camera-group');
-            if (firstGroup) {
-                const streamCountSelect = firstGroup.querySelector('.group-stream-count');
-                if (streamCountSelect) {
-                    // Установим значение "2" для количества потоков по умолчанию
-                    streamCountSelect.value = "2";
-                    // Напрямую вызываем обработчик события change
-                    // Добавим небольшую задержку, чтобы убедиться, что DOM полностью загружен
-                    setTimeout(() => {
-                        const event = new Event('change');
-                        streamCountSelect.dispatchEvent(event);
-                    }, 0);
-                }
-            }
-        }
-        
-        // Вызываем инициализацию потоков для первой группы камер после загрузки DOM
+
+        // Единая инициализация при загрузке DOM
         document.addEventListener('DOMContentLoaded', function() {
+            addAnalyticsRow();
             addCameraGroup();
-            initializeFirstGroupStreams();
+            updateButtonStates();
         });
 
         // Показ/скрытие вопросов клиентского оборудования
         document.getElementById('select-client-equipment').addEventListener('change', function() {
             const clientQuestions = document.getElementById('client-questions');
             if (this.checked) {
-                clientQuestions.classList.remove('hidden');
-                // Изменяем цвет переключателя на оранжевый при выборе "да"
+                clientQuestions.classList.add('visible');
                 this.parentNode.querySelector('.slider').style.backgroundColor = '#22b36d';
             } else {
-                clientQuestions.classList.add('hidden');
-                // Возвращаем обычный цвет при выборе "нет"
+                clientQuestions.classList.remove('visible');
                 this.parentNode.querySelector('.slider').style.backgroundColor = '';
             }
         });
@@ -1658,7 +1692,7 @@
             // Первая вкладка
             markdown += "## Опросный лист для подбора оборудования видеонаблюдения\n\n";
             
-            // Аналатика
+            // Аналитика
             markdown += "### Какую аналитику вы хотели бы использовать?\n";
             let totalCameras = 0;
             document.querySelectorAll('.analytics-row').forEach((row, index) => {
@@ -1819,10 +1853,6 @@
                 const clientSecondaryStreamCodec = document.getElementById('client-secondary-stream-codec').value;
                 markdown += `- Кодек основного потока: ${clientMainStreamCodec.toUpperCase()}\n`;
                 markdown += `- Кодек дополнительного потока: ${clientSecondaryStreamCodec.toUpperCase()}\n`;
-                
-                if (clientChassis) {
-                    markdown += `- Исполнение корпуса: ${clientChassis.value}\n`;
-                }
                 markdown += `- Использовать RAID 1: ${clientRaid1 ? 'Да' : 'Нет'}\n`;
                 markdown += `- Количество клиентских рабочих станций: ${clientWorkstations}\n`;
                 markdown += `- Количество камер на мониторы: ${clientCamerasPerMonitor}\n`;
@@ -1897,11 +1927,6 @@
                 saveButton.style.cursor = 'pointer';
             }
         }
-
-        // Инициализация состояния кнопок при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            updateButtonStates();
-        });
 
         // Обработчики изменений поля контактов и чекбокса
         document.getElementById('user-contacts').addEventListener('input', updateButtonStates);
